@@ -1,0 +1,12 @@
+<p>
+  I'm a {{stage.name}}!
+</p>
+<button (click)="createTask()"> Add task </button>
+
+
+<ul>
+  <li *ngFor="let task of tasks">
+    <app-task [task]="task" ></app-task>
+  </li>
+
+</ul>

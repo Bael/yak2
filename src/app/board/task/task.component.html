@@ -1,0 +1,8 @@
+<p>
+  I am a task {{task?.name}}!
+</p>
+
+<select (change)="onSelected($event.target.value)" >
+  <option *ngFor="let stage of stages" value={{stage.name}} > {{stage.name}}</option>
+
+</select>
