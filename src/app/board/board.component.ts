@@ -19,4 +19,8 @@ export class BoardComponent implements OnInit {
 
   onChangeStage($event: Task) {
   }
+
+  public getClass() {
+
+  }
 }

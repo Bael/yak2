@@ -1,7 +1,21 @@
+
 app-stage {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  flex-direction: column;
+}
 
-  border-left: chocolate dashed 2px;
-  border-right: chocolate dashed 2px;
+ul {
+  list-style: none;
+}
 
+.column {
+  background: wheat;
+}
+
+app-task {
 
 }

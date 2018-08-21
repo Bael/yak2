@@ -4,3 +4,16 @@
 }
 */
 
+
+app-stage {
+
+
+  border: aquamarine solid thick;
+
+  /*height: 100vh;*/
+  /*width: 20vw;*/
+  display: flex;
+  align-items: baseline;
+  flex-direction: row;
+  /*justify-content: stretch;*/
+}

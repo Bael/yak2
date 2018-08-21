@@ -1,7 +1,5 @@
-<p>
-  Kanban board works!
-</p>
 
-<div class="column" *ngFor="let stage of stages" [ngStyle]="{'width.%':  20 }" >
+
+<div class="column" *ngFor="let stage of stages" >
   <app-stage [stage]="stage" (changeStage)="onChangeStage($event)"></app-stage>
 </div>

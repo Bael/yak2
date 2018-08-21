@@ -24,6 +24,8 @@ export class TaskComponent implements OnInit {
   @Output()
   changePriority: EventEmitter<Task> = new EventEmitter<Task>();
 
+  timerState: string = 'выключен';
+
 
   onSelected(stageName: string) {
     this.task.stage = this.stages.find(value => value.name === stageName);
@@ -33,5 +35,21 @@ export class TaskComponent implements OnInit {
   onLikeTask() {
     this.task.priority++;
     this.changePriority.emit(this.task);
+  }
+
+  getClass() {
+    if (this.task.priority < 5) {
+      return "info"
+    }
+
+    if (this.task.priority < 10) {
+      return "warning"
+    }
+
+    return "critical";
+  }
+
+  public toggleTimer() {
+
   }
 }

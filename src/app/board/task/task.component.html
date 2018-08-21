@@ -1,8 +1,18 @@
+<div  draggable="true" [ngClass]="getClass()"  >
 <p>
-  I am a task {{task?.name}} with priority {{task?.priority}}!
+
+  Task: {{task?.name}} with priority {{task?.priority}}!
+
+    <button (click)="onLikeTask()" > Like it! </button>
+
+    <!--select (change)="onSelected($event.target.value)" >
+      <option *ngFor="let stage of stages" value="stage.name"> {{stage.name}}</option>
+    </select-->
+
+  <button (click)="toggleTimer()" > {{timerState}} </button>
+
 </p>
 
-<button (click)="onLikeTask()" > Like it! </button>
-<select (change)="onSelected($event.target.value)" >
-  <option *ngFor="let stage of stages" value="stage.name"> {{stage.name}}</option>
-</select>
+
+
+</div>

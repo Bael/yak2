@@ -1,0 +1,12 @@
+app-board {
+  width: 100%;
+  height: 100%;
+  border: aquamarine solid thick;
+  display: flex;
+  justify-content: space-between;
+}
+
+:host {
+  width: 100vw;
+}
+
