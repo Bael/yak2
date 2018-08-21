@@ -1,13 +1,14 @@
 
-app-stage {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: flex-start;
-  align-items: stretch;
-  flex-direction: column;
+header {
+  background: aquamarine;
+  width: 100%;
+  margin-bottom: 10px;
+  border-bottom: aqua solid thick;
 }
 
+div {
+  width: 100%;
+}
 ul {
   list-style: none;
 }
@@ -16,6 +17,4 @@ ul {
   background: wheat;
 }
 
-app-task {
 
-}

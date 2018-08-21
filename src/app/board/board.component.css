@@ -4,16 +4,24 @@
 }
 */
 
+div {
+  width: 100%;
+  height: 100vh;
+  border-right: aquamarine dashed thin;
+  border-left: aquamarine dashed thin;
+}
 
 app-stage {
 
 
-  border: aquamarine solid thick;
+
+  /*border: aquamarine solid thick;*/
 
   /*height: 100vh;*/
-  /*width: 20vw;*/
+
+  flex-grow: initial;
   display: flex;
   align-items: baseline;
   flex-direction: row;
-  /*justify-content: stretch;*/
+  justify-content: stretch;
 }

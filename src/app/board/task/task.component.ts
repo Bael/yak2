@@ -13,6 +13,9 @@ export class TaskComponent implements OnInit {
   task: Task;
 
   stages: Stage[] = Stages;
+
+  timerState: string = 'выключен';
+
   constructor() { }
 
   ngOnInit() {
@@ -23,8 +26,6 @@ export class TaskComponent implements OnInit {
 
   @Output()
   changePriority: EventEmitter<Task> = new EventEmitter<Task>();
-
-  timerState: string = 'выключен';
 
 
   onSelected(stageName: string) {
@@ -39,14 +40,14 @@ export class TaskComponent implements OnInit {
 
   getClass() {
     if (this.task.priority < 5) {
-      return "info"
+      return 'info';
     }
 
     if (this.task.priority < 10) {
-      return "warning"
+      return 'warning';
     }
 
-    return "critical";
+    return 'critical';
   }
 
   public toggleTimer() {
