@@ -1,8 +1,8 @@
 <p>
-  I am a task {{task?.name}}!
+  I am a task {{task?.name}} with priority {{task?.priority}}!
 </p>
 
+<button (click)="onLikeTask()" > Like it! </button>
 <select (change)="onSelected($event.target.value)" >
-  <option *ngFor="let stage of stages" value={{stage.name}} > {{stage.name}}</option>
-
+  <option *ngFor="let stage of stages" value="stage.name"> {{stage.name}}</option>
 </select>

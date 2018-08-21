@@ -3,5 +3,5 @@
 </p>
 
 <div class="column" *ngFor="let stage of stages" [ngStyle]="{'width.%':  20 }" >
-  <app-stage [stage]="stage"></app-stage>
+  <app-stage [stage]="stage" (changeStage)="onChangeStage($event)"></app-stage>
 </div>

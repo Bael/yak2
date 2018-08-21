@@ -19,10 +19,19 @@ export class TaskComponent implements OnInit {
   }
 
   @Output()
-  changeStage: EventEmitter<Task>;
+  changeStage: EventEmitter<Task> = new EventEmitter<Task>();
 
-  onSelected(stage: Stage) {
-    this.task.stage = stage;
+  @Output()
+  changePriority: EventEmitter<Task> = new EventEmitter<Task>();
+
+
+  onSelected(stageName: string) {
+    this.task.stage = this.stages.find(value => value.name === stageName);
     this.changeStage.emit(this.task);
+  }
+
+  onLikeTask() {
+    this.task.priority++;
+    this.changePriority.emit(this.task);
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Stage, Stages} from './stage';
+import {Task} from './task';
 
 @Component({
   selector: 'app-board',
@@ -15,4 +16,7 @@ export class BoardComponent implements OnInit {
   ngOnInit() {
   }
 
+
+  onChangeStage($event: Task) {
+  }
 }
