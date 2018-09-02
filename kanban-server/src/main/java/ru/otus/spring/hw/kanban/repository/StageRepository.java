@@ -15,4 +15,5 @@ public interface StageRepository extends CrudRepository<Stage, Integer> {
 
     List<Stage> findStagesByBoard(Board board);
 
+    List<Stage> findAll();
 }
