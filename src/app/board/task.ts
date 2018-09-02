@@ -5,6 +5,5 @@ export class Task {
   priority: number;
   stage: Stage;
   color: number;
-
 }
 
