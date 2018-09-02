@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Stage} from '../stage';
 import {Task} from '../task';
+import {TaskService} from '../../services/task.service';
 
 @Component({
   selector: 'app-stage',
@@ -9,7 +10,7 @@ import {Task} from '../task';
 })
 export class StageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private tasksService: TaskService) {}
 
   @Input()
   stage: Stage;
@@ -20,13 +21,17 @@ export class StageComponent implements OnInit {
   tasks: Task[] = [];
 
   ngOnInit() {
+    this.tasksService.getTasks().subscribe(tasks => this.tasks = tasks as Task[],
+      error => console.log(error),
+      () => console.log('done'));
   }
 
   createTask() {
     const task = new Task();
     task.name = 'new task #' + (this.tasks.length + 1);
     task.priority = 0;
-    this.tasks.push(task);
+    this.tasksService.createTask(task).subscribe(value => this.tasks.push(value as Task));
+
     this.sortTasks();
 
   }

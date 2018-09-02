@@ -1,11 +1,13 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
 
-import { AppComponent } from './app.component';
-import { BoardComponent } from './board/board.component';
-import { StageComponent } from './board/stage/stage.component';
-import { TaskComponent } from './board/task/task.component';
+import {AppComponent} from './app.component';
+import {BoardComponent} from './board/board.component';
+import {StageComponent} from './board/stage/stage.component';
+import {TaskComponent} from './board/task/task.component';
+import {TaskService} from './services/task.service';
+import {HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -16,9 +18,11 @@ import { TaskComponent } from './board/task/task.component';
     TaskComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [TaskService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

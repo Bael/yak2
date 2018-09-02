@@ -28,6 +28,11 @@ public class TaskService {
         return taskRepository.findAll().stream().map(TaskDTO::fromTask).collect(Collectors.toList());
     }
 
+    public List<TaskDTO> findAllByStage(int stageId) {
+        Stage stage = findStage(stageId);
+        return taskRepository.findAllByStage(stage).stream().map(TaskDTO::fromTask).collect(Collectors.toList());
+    }
+
     public TaskDTO find(int id) {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException("Task with id " + id + " not found."));

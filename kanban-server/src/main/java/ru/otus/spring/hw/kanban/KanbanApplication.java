@@ -1,15 +1,15 @@
 package ru.otus.spring.hw.kanban;
 
 //import org.h2.tools.Console;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import ru.otus.spring.hw.kanban.domain.Board;
+import ru.otus.spring.hw.kanban.domain.Task;
 import ru.otus.spring.hw.kanban.repository.BoardRepository;
-
-import java.awt.print.Book;
-
+import ru.otus.spring.hw.kanban.repository.TaskRepository;
 
 
 @SpringBootApplication
@@ -27,6 +27,12 @@ public class KanbanApplication {
         Board board = new Board("new board");
 
         boardRepository.save(board);
+
+        TaskRepository taskRepository = ctx.getBean(TaskRepository.class);
+
+        Task task = new Task("new task", "description", "me", 5);
+
+        taskRepository.save(task);
 
 
         System.out.println(board.getId());
