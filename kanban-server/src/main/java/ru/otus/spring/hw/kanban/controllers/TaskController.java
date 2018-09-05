@@ -27,6 +27,7 @@ public class TaskController {
     public List<TaskDTO> getTasks() {
         return taskService.findAll();
     }
+
     @PostMapping("/tasks")
     @CrossOrigin(origins = "${client.url}")
     TaskDTO newTask(@RequestBody TaskDTO newTask) {
