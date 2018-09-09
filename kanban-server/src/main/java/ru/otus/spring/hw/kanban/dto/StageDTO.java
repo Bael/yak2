@@ -1,9 +1,6 @@
 package ru.otus.spring.hw.kanban.dto;
 
-import ru.otus.spring.hw.kanban.domain.Board;
 import ru.otus.spring.hw.kanban.domain.Stage;
-
-import javax.persistence.*;
 
 public class StageDTO {
     public int id;
@@ -25,7 +22,10 @@ public class StageDTO {
         this.boardId = boardId;
     }
 
-    static public StageDTO fromStage(Stage stage) {
+  public StageDTO() {
+  }
+
+  static public StageDTO fromStage(Stage stage) {
         if(stage.getBoard() != null) {
             return new StageDTO(stage.getId(), stage.getName(), stage.getDescription(), stage.getBoard().getId());
         } else {
@@ -34,8 +34,8 @@ public class StageDTO {
     }
 
     public void fillStage(Stage stage) {
-        stage.setId(stage.getId());
-        stage.setName(stage.getName());
-        stage.setDescription(stage.getDescription());
+      stage.setId(id);
+      stage.setName(name);
+      stage.setDescription(description);
     }
 }

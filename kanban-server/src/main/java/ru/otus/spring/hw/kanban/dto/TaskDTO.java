@@ -5,6 +5,8 @@ import ru.otus.spring.hw.kanban.domain.Task;
 
 public class TaskDTO {
     public int id;
+  public int nextId;
+  public int previousId;
     public String name;
     public String description;
     public String executor;
