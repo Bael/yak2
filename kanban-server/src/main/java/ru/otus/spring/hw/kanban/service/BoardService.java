@@ -1,54 +1,19 @@
 package ru.otus.spring.hw.kanban.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import ru.otus.spring.hw.kanban.domain.Board;
 import ru.otus.spring.hw.kanban.dto.BoardDTO;
-import ru.otus.spring.hw.kanban.exceptions.BoardNotFoundException;
-import ru.otus.spring.hw.kanban.repository.BoardRepository;
 
-import javax.transaction.Transactional;
 import java.util.List;
-import java.util.stream.Collectors;
 
-@Service
-public class BoardService {
 
-    BoardRepository boardRepository;
+public interface BoardService {
 
-    @Autowired
-    public BoardService(BoardRepository boardRepository) {
-        this.boardRepository = boardRepository;
-    }
+    List<BoardDTO> findAll();
 
-    public List<BoardDTO> findAll() {
-        return boardRepository.findAll().stream().map(BoardDTO::fromBoard).collect(Collectors.toList());
-    }
+    BoardDTO find(int id);
 
-    public BoardDTO find(int id) {
-        Board board = boardRepository.findById(id)
-                .orElseThrow(() -> new BoardNotFoundException("Board with " + id + " not found."));
-        return BoardDTO.fromBoard(board);
-    }
+    BoardDTO create(BoardDTO newBoard);
 
-    @Transactional
-    public BoardDTO create(BoardDTO newBoard) {
-        Board board = new Board();
-        newBoard.fillBoard(board);
-        boardRepository.save(board);
-        return BoardDTO.fromBoard(board);
-    }
+    BoardDTO update(BoardDTO boardToUpdate);
 
-    @Transactional
-    public BoardDTO update(BoardDTO boardToUpdate) {
-        Board board = boardRepository.findById(boardToUpdate.id).orElseThrow(() -> new BoardNotFoundException(boardToUpdate.toString() + " not found."));
-        boardToUpdate.fillBoard(board);
-        boardRepository.save(board);
-        return BoardDTO.fromBoard(board);
-    }
-
-    @Transactional
-    public void deleteById(int id) {
-        boardRepository.deleteById(id);
-    }
+    void deleteById(int id);
 }

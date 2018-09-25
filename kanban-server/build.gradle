@@ -34,7 +34,7 @@ dependencies {
   compile('org.springframework.boot:spring-boot-starter-thymeleaf')
   compile('org.springframework.boot:spring-boot-starter-web')
 //  compile('org.springframework.boot:spring-boot-starter-data:')
-  compile('org.springframework.boot:spring-boot-starter-data-jpa:1.5.9.RELEASE')
+  compile('org.springframework.boot:spring-boot-starter-data-jpa:1.5.8.RELEASE')
   runtime('com.h2database:h2')
   testCompile('org.springframework.boot:spring-boot-starter-test')
 }
