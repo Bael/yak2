@@ -1,5 +1,12 @@
+<div class="column" *ngFor="let stage of stages; let i=index; let isLast = last; let isFirst = first;">
 
 
-<div class="column" *ngFor="let stage of stages" >
-  <app-stage [stage]="stage" (changeStage)="onChangeStage($event)"></app-stage>
+  <app-stage [stage]="stage" (changeStage)="onChangeStage($event)"
+             (moveAheadTaskEvent)="moveTask($event, i + 1)"
+             (moveBackTaskEvent)="moveTask($event, i - 1)"
+
+             [moveAheadEnabled]="!isLast"
+             [moveBackEnabled]="!isFirst"></app-stage>
+  <mat-divider [vertical]="true"></mat-divider>
+
 </div>

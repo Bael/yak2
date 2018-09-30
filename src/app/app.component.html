@@ -1,6 +1,7 @@
-<p>
-  Kanban board works!
-</p>
+<mat-progress-bar mode="buffer" *ngIf="taskAreLoading"></mat-progress-bar>
+<mat-toolbar color="primary">
+  <span>Welcome to Kanban!</span>
+</mat-toolbar>
 
 <app-board></app-board>
 

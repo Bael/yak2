@@ -1,3 +1,4 @@
+/*
 
 header {
   background: aquamarine;
@@ -5,7 +6,11 @@ header {
   margin-bottom: 10px;
   border-bottom: aqua solid thick;
 }
+*/
 
+.full-width {
+  width: 100%;
+}
 div {
   width: 100%;
 }
@@ -15,6 +20,9 @@ ul {
 
 .column {
   background: wheat;
+  border-right: aquamarine;
+  border-left-style: dashed;
 }
+
 
 
