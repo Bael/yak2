@@ -9,10 +9,19 @@ import {TaskComponent} from './board/task/task.component';
 import {TaskService} from './services/task.service';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCardModule, MatInputModule, MatListModule, MatProgressBarModule, MatToolbarModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatInputModule,
+  MatListModule,
+  MatProgressBarModule,
+  MatSelectModule,
+  MatToolbarModule
+} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SettingsService} from './services/settings.service';
 import {StageService} from './services/stage.service';
+import {BoardService} from './services/board.service';
 
 
 @NgModule({
@@ -32,11 +41,12 @@ import {StageService} from './services/stage.service';
     MatProgressBarModule,
     MatButtonModule,
     MatCardModule,
+    MatSelectModule,
     MatInputModule,
     MatListModule,
     MatToolbarModule
   ],
-  providers: [SettingsService, TaskService, StageService],
+  providers: [SettingsService, TaskService, StageService, BoardService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

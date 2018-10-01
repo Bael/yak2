@@ -19,4 +19,8 @@ export class SettingsService {
     return this.backendUrl + '/stages';
   }
 
+  get boardsUrl(): string {
+    return this.backendUrl + '/boards';
+  }
+
 }

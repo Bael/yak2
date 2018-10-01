@@ -31,6 +31,17 @@ public class StageServiceImpl implements StageService {
         return stageRepository.findAll().stream().map(StageDTO::fromStage).collect(Collectors.toList());
     }
 
+    @Override
+    public List<StageDTO> findByBoard(int id) {
+        Board board = this.boardRepository.findById(id).orElseThrow(() -> new BoardNotFoundException("Not found with id" + id));
+
+        return this.stageRepository
+                        .findStagesByBoard(board).stream()
+                        .map(stage -> StageDTO.fromStage(stage))
+                        .collect(Collectors.toList());
+
+    }
+
     public StageDTO find(int id) {
         Stage stage = stageRepository.findById(id)
                 .orElseThrow(() -> new StageNotFoundException("Stage with id " + id + " not found."));

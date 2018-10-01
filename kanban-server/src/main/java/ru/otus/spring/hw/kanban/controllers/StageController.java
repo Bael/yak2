@@ -2,7 +2,6 @@ package ru.otus.spring.hw.kanban.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.otus.spring.hw.kanban.dto.BoardDTO;
 import ru.otus.spring.hw.kanban.dto.StageDTO;
 import ru.otus.spring.hw.kanban.service.StageService;
 
@@ -24,6 +23,13 @@ public class StageController {
     public List<StageDTO> getStages() {
         return stageService.findAll();
     }
+
+    @CrossOrigin(origins = "${client.url}")
+    @RequestMapping(method = RequestMethod.GET, value = "/boards/{id}/stages")
+    public List<StageDTO> getStagesByBoard(@PathVariable int id) {
+        return stageService.findByBoard(id);
+    }
+
 
     @PostMapping("/stages")
     @CrossOrigin(origins = "${client.url}")

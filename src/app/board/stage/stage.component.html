@@ -3,8 +3,6 @@
     <h3>
       Stage: {{stage.name}}
     </h3>
-
-
   </header>
   <div>
     <form class="example-form">
@@ -12,9 +10,6 @@
         <input required matInput [(ngModel)]="newTaskText"
                placeholder="Enter new task description" value=""
                [formControl]="taskNameFormControl">
-        <!--<mat-error *ngIf="taskNameFormControl.touched && taskNameFormControl.hasError('required')">-->
-        <!--task name is <strong>required</strong>-->
-        <!--</mat-error >-->
       </mat-form-field>
 
       <button mat-button color="primary" type="submit" (click)="createTask()" *ngIf="newTaskText != ''"> Add task

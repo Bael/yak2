@@ -9,6 +9,8 @@ public interface StageService {
 
     List<StageDTO> findAll();
 
+    List<StageDTO> findByBoard(int id);
+
     StageDTO find(int id);
 
     StageDTO create(StageDTO newStage);

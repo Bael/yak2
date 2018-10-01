@@ -10,8 +10,8 @@ export class StageService {
   constructor(private httpClient: HttpClient, private settingsService: SettingsService) {
   }
 
-  getStages(): Observable<Stage[]> {
-    return this.httpClient.get<Stage[]>(this.settingsService.stagesUrl);
+  getStages(id: number): Observable<Stage[]> {
+    return this.httpClient.get<Stage[]>(`${this.settingsService.boardsUrl}/${id}/stages`);
   }
 
 }
