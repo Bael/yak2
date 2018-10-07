@@ -12,6 +12,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
   MatCardModule,
+  MatIconModule,
   MatInputModule,
   MatListModule,
   MatProgressBarModule,
@@ -22,6 +23,20 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SettingsService} from './services/settings.service';
 import {StageService} from './services/stage.service';
 import {BoardService} from './services/board.service';
+import {RouterModule, Routes} from '@angular/router';
+import {BoardSetupComponent} from './board-setup/board-setup.component';
+import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {BoardListComponent} from './board-list/board-list.component';
+import {EditTaskComponent} from './board/edit-task/edit-task.component';
+
+const appRoutes: Routes = [
+  {path: '', redirectTo: '/boards', pathMatch: 'full'},
+  {path: 'boards', component: BoardListComponent},
+  {path: 'board/:id', component: BoardComponent},
+  {path: 'board-setup/:id', component: BoardSetupComponent},
+  {path: '**', component: PageNotFoundComponent}
+];
 
 
 @NgModule({
@@ -29,10 +44,18 @@ import {BoardService} from './services/board.service';
     AppComponent,
     BoardComponent,
     StageComponent,
-    TaskComponent
+    TaskComponent,
+    BoardSetupComponent,
+    PageNotFoundComponent,
+    DashboardComponent,
+    BoardListComponent,
+    EditTaskComponent
   ],
   imports: [
-
+    RouterModule.forRoot(
+      appRoutes,
+      {enableTracing: true} // <-- debugging purposes only
+    ),
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
@@ -44,6 +67,7 @@ import {BoardService} from './services/board.service';
     MatSelectModule,
     MatInputModule,
     MatListModule,
+    MatIconModule,
     MatToolbarModule
   ],
   providers: [SettingsService, TaskService, StageService, BoardService],

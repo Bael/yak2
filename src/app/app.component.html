@@ -1,15 +1,13 @@
 <mat-progress-bar mode="buffer" *ngIf="taskAreLoading"></mat-progress-bar>
 <mat-toolbar color="primary">
-  <span>Welcome to Kanban! </span>
-  <span>current board: </span>
-  <mat-form-field>
-    <mat-select [(value)]="selectedBoard" (valueChange)="onChangeBoard($event)">
-      <div *ngFor="let board of boards">
-        <mat-option [value]="board">{{board.name}}</mat-option>
-      </div>
-    </mat-select>
-  </mat-form-field>
+
+  <a title="Click to return to main page." routerLink="boards"
+     routerLinkActive="active"><span>Welcome to Kanban! </span></a>
+
+
 </mat-toolbar>
 
-<app-board #boardcomponent></app-board>
+<router-outlet></router-outlet>
+
+
 

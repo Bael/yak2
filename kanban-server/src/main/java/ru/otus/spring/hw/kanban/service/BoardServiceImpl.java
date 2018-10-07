@@ -26,6 +26,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     public BoardDTO find(int id) {
+
         Board board = boardRepository.findById(id)
                 .orElseThrow(() -> new BoardNotFoundException("Board with " + id + " not found."));
         return BoardDTO.fromBoard(board);

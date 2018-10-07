@@ -66,4 +66,8 @@ export class TaskComponent implements OnInit {
   moveBack() {
     this.moveBackEvent.emit(this.task);
   }
+
+  onEditTask() {
+
+  }
 }

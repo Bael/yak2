@@ -5,6 +5,8 @@ import {StageService} from '../services/stage.service';
 import {Subscription} from 'rxjs/Subscription';
 import {TaskService} from '../services/task.service';
 import {Board} from './board';
+import {BoardService} from '../services/board.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-board',
@@ -16,15 +18,26 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   // stages: Stage[];
   private subscription: Subscription;
+  private sub: Subscription;
 
-  constructor(private stageService: StageService, private taskService: TaskService) {
+  constructor(private stageService: StageService,
+              private taskService: TaskService,
+              private boardService: BoardService,
+              private activatedRoute: ActivatedRoute) {
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.sub.unsubscribe();
   }
 
   ngOnInit() {
+    this.boardService.currentBoard.subscribe(value => this.loadStages(value));
+
+    this.sub = this.activatedRoute.params.subscribe(value => {
+
+      this.boardService.loadBoardById(value.id);
+    });
   }
 
 
