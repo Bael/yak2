@@ -16,6 +16,8 @@ public interface TaskService {
 
   TaskDTO update(TaskDTO taskToUpdate);
 
+  TaskDTO moveToNextStage(TaskDTO taskToUpdate);
+
   void deleteById(int id);
 
 }

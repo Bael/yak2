@@ -42,7 +42,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Transactional
     public BoardDTO update(BoardDTO boardToUpdate) {
-        Board board = boardRepository.findById(boardToUpdate.id).orElseThrow(() -> new BoardNotFoundException(boardToUpdate.toString() + " not found."));
+        Board board = boardRepository.findById(boardToUpdate.getId()).orElseThrow(() -> new BoardNotFoundException(boardToUpdate.toString() + " not found."));
         boardToUpdate.fillBoard(board);
         boardRepository.save(board);
         return BoardDTO.fromBoard(board);

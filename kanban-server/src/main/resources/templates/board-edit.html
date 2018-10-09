@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Edit board</title>
+  <link rel="stylesheet" href="/css/bulma.min.css">
+  <style type="text/css">
+    body {
+      padding: 50px;
+    }
+
+    label {
+      display: inline-block;
+      width: 100px;
+    }
+
+    input:read-only {
+      background: lightgray;
+    }
+
+    ul {
+      list-style-type: none;
+    }
+
+    .row {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<a href="/">Return to main page</a>
+
+<form action="#" th:action="@{/boards/edit/(id=${board.id})}" th:object="${board}" method="post">
+  <div class="field">
+    <label class="label">Id</label>
+    <div class="control">
+      <input class="input" type="text" th:field="*{id}" readonly/>
+    </div>
+  </div>
+  <div class="field">
+    <label class="title is-4 is-fullwidth">Name of board</label>
+    <div class="control">
+      <input class="input" type="text" th:field="*{name}"/>
+    </div>
+  </div>
+
+  <p><input class="button is-primary" type="submit" value="Save board"/> <input class="button is-info" type="reset"
+                                                                                value="Reset"/></p>
+</form>
+<form action="#" th:action="@{/boards/delete/(id=${board.id})}" method="post">
+  <p><input class="button is-danger" type="submit" value="Delete board"/></p>
+</form>
+
+<hr>
+<h1 class="title is-3">Stages of board:</h1>
+<ul>
+  <li th:each="stage : ${board.stages}">
+    <a class="label" th:href="@{/boards/stages/(boardId=${board.id},stageId=${stage.id})}" href="#">
+      <p class="label" title="Click to go to stage card" th:text="${stage.name}">Edit stage</p>
+    </a>
+  </li>
+</ul>
+<form action="#" th:action="@{/boards/stages/(boardId=${board.id})}" th:object="${stage}" method="post">
+  <div class="field">
+    <label class="title is-4 is-fullwidth">Name of new stage</label>
+    <div class="control">
+      <input class="input" type="text" name="name"/>
+    </div>
+  </div>
+  <p><input class="button is-primary" type="submit" value="Create new stage"/></p>
+</form>
+
+
+</body>
+</html>
+

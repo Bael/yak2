@@ -37,13 +37,13 @@ public class BoardControllerTest {
 
     List<BoardDTO> list = new ArrayList<>();
     BoardDTO board = new BoardDTO();
-    board.id = 1;
-    board.name = "board 1";
+    board.setId(1);
+    board.setName("board 1");
     list.add(board);
 
     BoardDTO board2 = new BoardDTO();
-    board2.id = 2;
-    board2.name = "board 2";
+    board2.setId(2);
+    board2.setName("board 2");
     list.add(board2);
 
     given(this.boardService.findAll())

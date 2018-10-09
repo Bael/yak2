@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Edit stage</title>
+    <link rel="stylesheet" href="/css/bulma.min.css">
+    <style type="text/css">
+        body {
+            padding: 50px;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+        }
+
+        input:read-only {
+            background: lightgray;
+        }
+
+        .row {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<a href="/">Return to main page</a>
+<form action="#" th:action="@{/boards/stages/update/(boardId=${stage.boardId},stageId=${stage.id})}"
+      th:object="${stage}" method="post">
+    <div class="field">
+        <label class="label">Name of stage</label>
+        <div class="control">
+            <input class="input" type="text" th:field="*{name}"/>
+        </div>
+    </div>
+    <p><input type="submit" class="button is-primary" value="Update stage"/></p>
+</form>
+<hr>
+<form action="#" th:action="@{/boards/stages/delete/(boardId=${stage.boardId},stageId=${stage.id})}" method="post">
+    <p><input type="submit" class="is-primary button" value="Delete stage"/></p>
+</form>
+
+
+</body>
+</html>
+

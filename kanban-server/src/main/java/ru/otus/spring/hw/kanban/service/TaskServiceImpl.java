@@ -91,6 +91,26 @@ public class TaskServiceImpl implements TaskService {
         return TaskDTO.fromTask(task);
     }
 
+    @Override
+    @Transactional
+    public TaskDTO moveToNextStage(TaskDTO taskToUpdate) {
+        Task task = taskRepository.findById(taskToUpdate.id).orElseThrow(() -> new TaskNotFoundException(taskToUpdate.toString() + " not found."));
+
+        List<Stage> stages = (List<Stage>) stageRepository.findStagesByBoard(task.getStage().getBoard());
+
+        for (int i = 0; i < stages.size(); i++) {
+            if (stages.get(i).getId() == task.getStage().getId()) {
+                if (i < stages.size() - 1) {
+                    task.setStage(stages.get(i + 1));
+                    taskRepository.save(task);
+                    return TaskDTO.fromTask(task);
+                }
+            }
+        }
+
+        return TaskDTO.fromTask(task);
+    }
+
     @Transactional
     public void deleteById(int id) {
         taskRepository.deleteById(id);

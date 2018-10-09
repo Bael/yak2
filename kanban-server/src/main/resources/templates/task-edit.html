@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Edit task</title>
+    <link rel="stylesheet" href="/css/bulma.min.css">
+    <style type="text/css">
+        body {
+            padding: 50px;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+        }
+
+        input:read-only {
+            background: lightgray;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        .row {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<a href="/">Return to main page</a>
+<form action="#" th:action="@{/tasks/edit/(boardId=${board.id},id=${task.id})}" th:object="${task}" method="post">
+    <div class="field">
+        <label class="label">Id</label>
+        <div class="control">
+            <input class="input" type="text" th:field="*{id}" readonly/>
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+            <input class="input" type="text" th:field="*{name}"/>
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label">Description</label>
+        <div class="control">
+            <input class="input" type="text" th:field="*{description}"/>
+        </div>
+    </div>
+
+
+    <p><input class="button is-primary" type="submit" value="Save task"/> <input class="button" type="reset"
+                                                                                 value="Reset changes"/></p>
+</form>
+<hr>
+<form action="#" th:action="@{/tasks/delete/(boardId=${board.id},id=${task.id})}" method="post">
+    <p><input type="submit" title="Click to delete task" class="button is-danger" value="Delete"/></p>
+</form>
+
+
+</body>
+</html>
+

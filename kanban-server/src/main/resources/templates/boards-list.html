@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>List of all boards</title>
+  <link rel="stylesheet" href="/css/bulma.min.css">
+  <style type="text/css">
+    body {
+      padding: 50px;
+    }
+
+    .boards, .boards td {
+      border: 1px solid lightgray;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body class="container">
+<h1>Boards:</h1>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Show kanban for board</th>
+    <th>Edit board</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="board : ${boards}">
+    <td th:text="${board.id}">1</td>
+    <td th:text="${board.name}">no name</td>
+    <td>
+      <a th:href="@{/boards/(id=${board.id})}" href="board-show.html">Show kanban</a>
+    </td>
+    <td>
+      <a th:href="@{/boards/edit/(id=${board.id})}" href="board-edit.html">Edit</a>
+    </td>
+
+
+  </tr>
+  </tbody>
+</table>
+
+
+<form action="#" th:action="@{/boards/}" th:object="${board}" method="post">
+
+  <div class="field">
+    <label class="label">Name of new board</label>
+    <div class="control">
+      <input class="input" type="text" name="name"/>
+    </div>
+  </div>
+  <p><input type="submit" class="button is-primary" value="Create new Board"/></p>
+</form>
+
+
+</body>
+</html>

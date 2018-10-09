@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Kanban</title>
+    <link rel="stylesheet" href="/css/bulma.min.css">
+    <style type="text/css">
+        body {
+            padding: 50px;
+        }
+
+        .boards, .boards td {
+
+            padding: 5px;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+
+    </style>
+</head>
+<body>
+<a href="/">Return to main page</a>
+<h1 class="header-panel" th:text="${board.name}">Board info</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th th:each="stage : ${board.stages}">
+
+            <p class="label title is-3" th:text="${stage.name}">stage</p>
+
+            <form action="#" th:action="@{/tasks/(stageId=${stage.id},boardId=${board.id})}" th:object="${task}"
+                  method="post">
+
+                <div class="field">
+
+                    <div class="control">
+                        <input class="input" placeholder="task name.." type="text" name="name"/>
+                    </div>
+                    <p><input class="button is-primary" type="submit" value="Create task"/></p>
+                </div>
+
+            </form>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th th:each="stage : ${board.stages}">
+            <ul>
+                <li th:each="task : ${stage.tasks}">
+                    <article class="message">
+                        <div class="message-header">
+                            <a title="Click to go to the task card"
+                               th:href="@{/tasks/edit/(id=${task.id},boardId=${board.id})}"> <span
+                                    th:text="${task.name}"></span></a>
+                        </div>
+                        <div class="message-body">
+
+                            <p th:text="${task.description}"></p>
+                            <form action="#" th:action="@{/tasks/move/(id=${task.id},boardId=${board.id})}"
+                                  th:object="${task}" method="post">
+                                <!--<p th:text="${task.name}">task</p>-->
+                                <p><input class="button is-info" title="Move task to next stage" type="submit"
+                                          value="Next"/></p>
+                            </form>
+                        </div>
+                    </article>
+
+                    <div>
+
+                    </div>
+                </li>
+            </ul>
+        </th>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

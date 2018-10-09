@@ -1,57 +1,79 @@
 package ru.otus.spring.hw.kanban.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import ru.otus.spring.hw.kanban.dto.BoardDTO;
 import ru.otus.spring.hw.kanban.dto.StageDTO;
+import ru.otus.spring.hw.kanban.service.BoardService;
 import ru.otus.spring.hw.kanban.service.StageService;
 
-import java.util.List;
-
-@RestController
+@Controller
 public class StageController {
-
-
     StageService stageService;
+    BoardService boardService;
 
     @Autowired
-    public StageController(StageService stageService) {
+    public StageController(StageService stageService, BoardService boardService) {
         this.stageService = stageService;
-    }
-
-    @CrossOrigin(origins = "${client.url}")
-    @RequestMapping(method = RequestMethod.GET, value = "/stages")
-    public List<StageDTO> getStages() {
-        return stageService.findAll();
-    }
-
-    @CrossOrigin(origins = "${client.url}")
-    @RequestMapping(method = RequestMethod.GET, value = "/boards/{id}/stages")
-    public List<StageDTO> getStagesByBoard(@PathVariable int id) {
-        return stageService.findByBoard(id);
+        this.boardService = boardService;
     }
 
 
-    @PostMapping("/stages")
-    @CrossOrigin(origins = "${client.url}")
-    StageDTO newStage(@RequestBody StageDTO newStage) {
-        return stageService.create(newStage);
+    @RequestMapping(value = {"/boards/stages/update"}, method = RequestMethod.POST)
+    public String saveStage(@RequestParam("boardId") int boardId, @RequestParam("stageId") int stageId, Model model, //
+                            @ModelAttribute StageDTO stage) {
+
+        StageDTO stageDTO = stageService.find(stageId);
+        stageDTO.setName(stage.getName());
+        stageService.update(stageDTO);
+
+        BoardDTO board = boardService.find(boardId);
+        board.setStages(stageService.findByBoard(boardId));
+        model.addAttribute("board", board);
+        return "board-edit";
     }
 
-    @CrossOrigin(origins = "${client.url}")
-    @GetMapping("/stages/{id}")
-    public StageDTO getStage(@PathVariable int id) {
-        return stageService.find(id);
+
+    @RequestMapping(value = {"/boards/stages"}, method = RequestMethod.GET)
+    public String editStage2(@RequestParam("boardId") int boardId, @RequestParam("stageId") int stageId,
+                             Model model) {
+
+        StageDTO stageDTO = stageService.find(stageId);
+        BoardDTO boardDTO = boardService.find(boardId);
+
+        model.addAttribute("stage", stageDTO);
+        model.addAttribute("board", boardDTO);
+        return "stage-edit";
+
+
     }
 
-    @CrossOrigin(origins = "${client.url}")
-    @PutMapping("/stages/{id}")
-    StageDTO updateStage(@RequestBody StageDTO stageDTO, @PathVariable Long id) {
-        return stageService.update(stageDTO);
+
+    @RequestMapping(value = {"/boards/stages/"}, method = RequestMethod.POST)
+    public String createStage(@RequestParam("boardId") int boardId, Model model, StageDTO stageDTO) {
+
+        stageService.create(stageDTO);
+        BoardDTO board = boardService.find(boardId);
+        board.setStages(stageService.findByBoard(boardId));
+        model.addAttribute("board", board);
+        return "board-edit";
     }
 
-    @CrossOrigin(origins = "${client.url}")
-    @DeleteMapping("/stages/{id}")
-    void deleteStage(@PathVariable int id) {
-        stageService.deleteById(id);
+    @RequestMapping(value = {"/boards/stages/delete"}, method = RequestMethod.POST)
+    public String deleteStage(@RequestParam("boardId") int boardId, @RequestParam("stageId") int stageId, Model model, //
+                              @ModelAttribute StageDTO stageDTO) {
+
+        stageService.deleteById(stageId);
+        BoardDTO board = boardService.find(boardId);
+        board.setStages(stageService.findByBoard(boardId));
+
+        model.addAttribute("board", board);
+        return "board-edit";
     }
+
 }
