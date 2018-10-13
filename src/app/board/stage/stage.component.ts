@@ -5,7 +5,7 @@ import {TaskService} from '../../services/task.service';
 import {FormControl, Validators} from '@angular/forms';
 import {Subject} from 'rxjs/Subject';
 import {Subscription} from 'rxjs/Subscription';
-import {repeatWhen} from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-stage',
@@ -39,20 +39,27 @@ export class StageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    this.loadTasks2();
+  }
+
+
+  loadTasks2() {
     this.subscription = this.tasksService
       .getTasksByStageId(this.stage.id)
-      .pipe(repeatWhen(() => this.refreshStage))
       .subscribe(tasks => {
           this.stage.tasks = tasks;
           console.log('on get tasks');
         },
         error => console.log(error),
-        () => console.log('done'));
+        () => console.log('done get tasks'));
+
   }
+
 
   loadTasks() {
     console.log('load tasks called!');
-    setTimeout(this.refreshStage.next(null), 100);
+    this.refreshStage.next();
 
   }
 
@@ -107,8 +114,11 @@ export class StageComponent implements OnInit, OnDestroy {
 
 
   onDeleteTaskEvent(taskToDelete: Task) {
+
     const deleteSub = this.tasksService.deleteTask(taskToDelete).subscribe(() => {
-      this.loadTasks();
+      this.loadTasks2();
+      // this.filterTasks(taskToDelete);
+      // this.loadTasks();
       deleteSub.unsubscribe();
     });
 

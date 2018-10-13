@@ -30,5 +30,9 @@ export class TaskService {
     return this.httpClient.delete<Task>(`${this.settingsService.tasksUrl}/${task.id}`);
   }
 
+  findTask(id: number): Observable<Task> {
+    return this.httpClient.get<Task>(this.settingsService.tasksUrl + '/' + id);
+  }
+
 
 }

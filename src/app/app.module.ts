@@ -35,6 +35,7 @@ const appRoutes: Routes = [
   {path: 'boards', component: BoardListComponent},
   {path: 'board/:id', component: BoardComponent},
   {path: 'board-setup/:id', component: BoardSetupComponent},
+  {path: 'task/:id', component: EditTaskComponent},
   {path: '**', component: PageNotFoundComponent}
 ];
 
