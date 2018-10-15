@@ -5,14 +5,14 @@
     </h3>
   </header>
   <div>
-    <form class="example-form">
-      <mat-form-field aria-required="true" class="full-width">
-        <input required matInput [(ngModel)]="newTaskText"
-               placeholder="Enter new task description" value=""
+    <form class="example-form" (submit)="createTask()">
+      <mat-form-field class="full-width">
+        <input matInput [(ngModel)]="newTaskText"
+               placeholder="task name .."
                [formControl]="taskNameFormControl">
       </mat-form-field>
 
-      <button mat-button color="primary" type="submit" (click)="createTask()" *ngIf="newTaskText != ''"> Add task
+      <button mat-button color="primary" type="submit" *ngIf="newTaskText != '' && newTaskText != null"> Add task
       </button>
     </form>
   </div>

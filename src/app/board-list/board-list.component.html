@@ -1,0 +1,24 @@
+<div *ngIf="boards != null">
+  <mat-nav-list>
+    <mat-list-item *ngFor="let board of boards">
+      <button type="button"
+              title="Edit board settings, or delete board" (click)="goToBoardSetup(board)">
+        <mat-icon matListIcon>edit</mat-icon>
+      </button>
+      <a [routerLink]="['/board', board.id]" routerLinkActive="active">Go to tasks for board: {{board.name}}</a>
+    </mat-list-item>
+
+  </mat-nav-list>
+</div>
+
+
+<form>
+  <label>Create new board:</label>
+  <mat-form-field>
+    <input matInput placeholder="Enter name of board" #newboard>
+  </mat-form-field>
+  <button type="button"
+          title="Save new board" (click)="onSubmitNewBoard(newboard.value); newboard.value = '';">
+    <mat-icon matListIcon>add</mat-icon>
+  </button>
+</form>

@@ -9,7 +9,8 @@ import java.util.List;
 
 @RestController
 public class TaskController {
-    TaskService taskService;
+
+    private final TaskService taskService;
 
     @Autowired
     public TaskController(TaskService taskService) {
@@ -17,13 +18,13 @@ public class TaskController {
     }
 
     @CrossOrigin(origins = "${client.url}")
-    @RequestMapping(method = RequestMethod.GET, value = "/stages/{id}/tasks")
+    @GetMapping(value = "/stages/{id}/tasks")
     public List<TaskDTO> getTasksByStage(@PathVariable int id) {
         return taskService.findAllByStage(id);
     }
 
     @CrossOrigin(origins = "${client.url}")
-    @RequestMapping(method = RequestMethod.GET, value = "/tasks")
+    @GetMapping(value = "/tasks")
     public List<TaskDTO> getTasks() {
         return taskService.findAll();
     }

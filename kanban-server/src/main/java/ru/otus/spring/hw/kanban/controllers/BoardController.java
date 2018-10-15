@@ -11,14 +11,14 @@ import java.util.List;
 public class BoardController {
 
 
-    BoardService boardService;
+    private final BoardService boardService;
 
     @Autowired
     public BoardController(BoardService boardService) {
         this.boardService = boardService;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/boards")
+    @GetMapping(value = "/boards")
     @CrossOrigin(origins = "${client.url}")
     public List<BoardDTO> getBoards() {
         return boardService.findAll();

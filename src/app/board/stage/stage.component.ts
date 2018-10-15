@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angula
 import {Stage} from '../stage';
 import {Task} from '../task';
 import {TaskService} from '../../services/task.service';
-import {FormControl, Validators} from '@angular/forms';
+import {FormControl} from '@angular/forms';
 import {Subject} from 'rxjs/Subject';
 import {Subscription} from 'rxjs/Subscription';
 
@@ -29,9 +29,7 @@ export class StageComponent implements OnInit, OnDestroy {
   @Input()
   moveAheadEnabled: boolean;
   refreshStage = new Subject();
-  taskNameFormControl = new FormControl('', [
-    Validators.required
-  ]);
+  taskNameFormControl = new FormControl('',);
 
   private subscription: Subscription;
 
@@ -79,8 +77,9 @@ export class StageComponent implements OnInit, OnDestroy {
         }
       );
 
-    this.taskNameFormControl.reset();
+
     this.newTaskText = '';
+    this.taskNameFormControl.reset();
     this.sortTasks();
 
   }

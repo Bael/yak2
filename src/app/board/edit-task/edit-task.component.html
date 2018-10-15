@@ -1,0 +1,15 @@
+<div class="example-container" *ngIf="task != null">
+  <mat-form-field>
+    <input [value]="task.id" matInput/>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput name="name" placeholder="text input" [(ngModel)]="task.name">
+  </mat-form-field>
+  <mat-form-field>
+    <textarea matInput name="description" placeholder="description" [(ngModel)]="task.description"></textarea>
+  </mat-form-field>
+
+  <form ngForm (submit)="onSubmit()">
+    <button type="submit">Save data</button>
+  </form>
+</div>

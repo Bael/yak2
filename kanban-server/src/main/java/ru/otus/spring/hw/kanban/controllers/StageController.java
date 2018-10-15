@@ -11,7 +11,7 @@ import java.util.List;
 public class StageController {
 
 
-    StageService stageService;
+    private final StageService stageService;
 
     @Autowired
     public StageController(StageService stageService) {
@@ -19,13 +19,13 @@ public class StageController {
     }
 
     @CrossOrigin(origins = "${client.url}")
-    @RequestMapping(method = RequestMethod.GET, value = "/stages")
+    @GetMapping(value = "/stages")
     public List<StageDTO> getStages() {
         return stageService.findAll();
     }
 
     @CrossOrigin(origins = "${client.url}")
-    @RequestMapping(method = RequestMethod.GET, value = "/boards/{id}/stages")
+    @GetMapping(value = "/boards/{id}/stages")
     public List<StageDTO> getStagesByBoard(@PathVariable int id) {
         return stageService.findByBoard(id);
     }
