@@ -1,18 +1,32 @@
 <div>
-<header>
-  <p>
-  Stage: {{stage.name}}!
-    <button (click)="createTask()"> Add task </button>
-  </p>
+  <header mat-subheader>
+    <h3>
+      Stage: {{stage.name}}
+    </h3>
+  </header>
+  <div>
+    <form class="example-form" (submit)="createTask()">
+      <mat-form-field class="full-width">
+        <input matInput [(ngModel)]="newTaskText"
+               placeholder="task name .."
+               [formControl]="taskNameFormControl">
+      </mat-form-field>
 
-</header>
+      <button mat-button color="primary" type="submit" *ngIf="newTaskText != '' && newTaskText != null"> Add task
+      </button>
+    </form>
+  </div>
 
 
+  <div *ngFor="let task of stage.tasks">
+    <app-task [moveBackEnabled]="moveBackEnabled" [moveAheadEnabled]="moveAheadEnabled" [task]="task"
+              (moveAheadEvent)="onMoveAheadEvent($event)"
+              (moveBackEvent)="onMoveBackEvent($event)"
+              (deleteTaskEvent)="onDeleteTaskEvent($event)"
+    ></app-task>
 
-<ul>
-  <li *ngFor="let task of tasks">
-    <app-task [task]="task" (changeStage)="onChangeTaskState($event)" (changePriority)="onChangePriority($event)" ></app-task>
-  </li>
 
-</ul>
+  </div>
+
+
 </div>

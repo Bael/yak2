@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Task} from '../task';
-import {Stage, Stages} from '../stage';
+
 
 @Component({
   selector: 'app-task',
@@ -12,31 +12,40 @@ export class TaskComponent implements OnInit {
   @Input()
   task: Task;
 
-  stages: Stage[] = Stages;
+  @Input()
+  moveBackEnabled: boolean;
+  @Input()
+  moveAheadEnabled: boolean;
 
-  timerState: string = 'выключен';
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  // timerState: string = 'выключен';
   @Output()
-  changeStage: EventEmitter<Task> = new EventEmitter<Task>();
-
+  moveAheadEvent: EventEmitter<Task> = new EventEmitter<Task>();
+  @Output()
+  moveBackEvent: EventEmitter<Task> = new EventEmitter<Task>();
   @Output()
   changePriority: EventEmitter<Task> = new EventEmitter<Task>();
+  @Output()
+  deleteTaskEvent: EventEmitter<Task> = new EventEmitter<Task>();
 
+  constructor() {
+  }
 
-  onSelected(stageName: string) {
-    this.task.stage = this.stages.find(value => value.name === stageName);
-    this.changeStage.emit(this.task);
+  ngOnInit() {
   }
 
   onLikeTask() {
     this.task.priority++;
     this.changePriority.emit(this.task);
   }
+
+  deleteTask() {
+    this.deleteTaskEvent.emit(this.task);
+  }
+
+  moveAhead() {
+    this.moveAheadEvent.emit(this.task);
+  }
+
 
   getClass() {
     if (this.task.priority < 5) {
@@ -51,6 +60,14 @@ export class TaskComponent implements OnInit {
   }
 
   public toggleTimer() {
+
+  }
+
+  moveBack() {
+    this.moveBackEvent.emit(this.task);
+  }
+
+  onEditTask() {
 
   }
 }

@@ -1,5 +1,11 @@
+<!--<a routerLink="['board-setup', board.id]" routerLinkActive="active">Edit board settings</a>-->
 
+<div class="column" *ngFor="let stage of board?.stages; let i=index; let isLast = last; let isFirst = first;">
+  <app-stage [stage]="stage"
+             (moveAheadTaskEvent)="moveTask($event, i + 1)"
+             (moveBackTaskEvent)="moveTask($event, i - 1)"
 
-<div class="column" *ngFor="let stage of stages" >
-  <app-stage [stage]="stage" (changeStage)="onChangeStage($event)"></app-stage>
+             [moveAheadEnabled]="!isLast"
+             [moveBackEnabled]="!isFirst"></app-stage>
+  <mat-divider [vertical]="true"></mat-divider>
 </div>

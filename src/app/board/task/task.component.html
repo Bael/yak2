@@ -1,18 +1,28 @@
-<div  draggable="true" [ngClass]="getClass()"  >
-<p>
+<!--select (change)="onSelected($event.target.value)" >
+  <option *ngFor="let stage of stages" value="stage.name"> {{stage.name}}</option>
+</select-->
 
-  Task: {{task?.name}} with priority {{task?.priority}}!
-
-    <button (click)="onLikeTask()" > Like! </button>
-
-    <!--select (change)="onSelected($event.target.value)" >
-      <option *ngFor="let stage of stages" value="stage.name"> {{stage.name}}</option>
-    </select-->
-
-  <!--<button (click)="toggleTimer()" > {{timerState}} </button>-->
-
-</p>
+<!--<button (click)="toggleTimer()" > {{timerState}} </button>-->
 
 
+<mat-card class="task-card">
+  <mat-card-header>
+    <mat-card-title title="click to open the task form" class="my-card-title">
+      <a [routerLink]="['/task', task.id]">Task: {{task?.name}}</a>
+    </mat-card-title>
+    <!--mat-card-subtitle>priority {{task?.priority}}</mat-card-subtitle-->
+  </mat-card-header>
+  <mat-card-content>
+    <span>Description: {{task?.description}}</span>
+  </mat-card-content>
+  <mat-card-actions>
+    <!--button mat-button (click)="onLikeTask()">LIKE</button-->
+    <!--<button mat-button (click)="onEditTask()">EDIT</button>-->
+    <button mat-button title="Delete task" color="warn" (click)="deleteTask()">DEL</button>
+    <button mat-button title="Move to prev stage" color="accent" (click)="moveBack()" *ngIf="moveBackEnabled">PREV
+    </button>
+    <button mat-button title="Move to next stage" color="accent" (click)="moveAhead()" *ngIf="moveAheadEnabled">NEXT
+    </button>
+  </mat-card-actions>
+</mat-card>
 
-</div>

@@ -1,9 +1,9 @@
-import {Stage} from './stage';
-
 export class Task {
+  id: number;
   name: string;
+  description: string;
   priority: number;
-  stage: Stage;
+  stageId: number;
   color: number;
 }
 

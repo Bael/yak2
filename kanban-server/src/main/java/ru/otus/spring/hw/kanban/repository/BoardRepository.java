@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface BoardRepository extends CrudRepository<Board, Integer> {
     List<Board> findBoardsByNameLike(String name);
+    List<Board> findAll();
 
 }

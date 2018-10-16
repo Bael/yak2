@@ -1,0 +1,35 @@
+<div>
+  <mat-label>Board setup for: {{board.name}}</mat-label>
+  <button type="button"
+          title="Delete this board" (click)="onDeleteBoard()">
+    <mat-icon matListIcon>delete_forever</mat-icon>
+  </button>
+
+
+  <mat-list *ngIf="board != null">
+    <mat-list-item *ngFor="let stage of board.stages">
+      <form>
+        <mat-form-field>
+          <input #input matInput [value]="stage.name">
+        </mat-form-field>
+      </form>
+      <button mat-button title="Save stage" (click)="editStage(stage, input.value)">SAVE STAGE</button>
+      <button mat-button="warning" class="warning" title="Delete stage" (click)="deleteStage(stage)">DELETE STAGE
+      </button>
+    </mat-list-item>
+  </mat-list>
+
+
+  <form *ngIf="board != null" (submit)="onSubmitNewStage(newstageinput.value)">
+    <mat-label>Add new stage:</mat-label>
+    <mat-form-field>
+      <input matInput placeholder="enter name of stage" #newstageinput>
+    </mat-form-field>
+    <button type="submit"
+            title="Save stage">
+      <mat-icon matListIcon>add</mat-icon>
+    </button>
+  </form>
+
+</div>
+

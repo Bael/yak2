@@ -1,10 +1,16 @@
-export class Stage {
-  name: String;
+import {Task} from 'app/board/task';
 
-  constructor(name: String) {
+export class Stage {
+  id: number;
+  name: String;
+  boardId: number;
+  tasks: Task[];
+
+
+  constructor(name: String, boardId: number) {
     this.name = name;
+    this.boardId = boardId;
   }
 }
 
-export const Stages: Stage[] = [new Stage('backlog'), new Stage('plan'), new Stage('work'), new Stage('done')];
 
