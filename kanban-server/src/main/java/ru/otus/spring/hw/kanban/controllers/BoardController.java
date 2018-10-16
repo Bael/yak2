@@ -1,11 +1,12 @@
 package ru.otus.spring.hw.kanban.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 import ru.otus.spring.hw.kanban.dto.BoardDTO;
 import ru.otus.spring.hw.kanban.service.BoardService;
-
-import java.util.List;
 
 @RestController
 public class BoardController {
@@ -20,9 +21,10 @@ public class BoardController {
 
     @GetMapping(value = "/boards")
     @CrossOrigin(origins = "${client.url}")
-    public List<BoardDTO> getBoards() {
-        return boardService.findAll();
+    public Flux<BoardDTO> getBoards() {
+        return boardService.findAll().map(BoardDTO::fromBoard);
     }
+    /*
 
     @PostMapping("/boards")
     @CrossOrigin(origins = "${client.url}")
@@ -47,5 +49,5 @@ public class BoardController {
     void deleteBoard(@PathVariable int id) {
         boardService.deleteById(id);
     }
-
+*/
 }

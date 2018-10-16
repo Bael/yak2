@@ -1,11 +1,8 @@
 package ru.otus.spring.hw.kanban.service;
 
-import ru.otus.spring.hw.kanban.dto.TaskDTO;
-
-import java.util.List;
-
 public interface TaskService {
 
+  /*
   List<TaskDTO> findAll();
 
   List<TaskDTO> findAllByStage(int stageId);
@@ -17,5 +14,5 @@ public interface TaskService {
   TaskDTO update(TaskDTO taskToUpdate);
 
   void deleteById(int id);
-
+*/
 }

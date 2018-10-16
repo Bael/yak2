@@ -5,8 +5,8 @@ import ru.otus.spring.hw.kanban.domain.Task;
 
 public class TaskDTO {
     public int id;
-  public int nextId;
-  public int previousId;
+    public int nextId;
+    public int previousId;
     public String name;
     public String description;
     public String executor;
@@ -34,15 +34,11 @@ public class TaskDTO {
     }
 
     public static TaskDTO fromTask(Task task) {
-        if (task.getStage() != null) {
-            return new TaskDTO(task.getId(), task.getName(), task.getDescription(),
-                    task.getExecutor(), task.getPriority(), task.getStage().getId());
-        }
-         else {
-            return new TaskDTO(task.getId(), task.getName(), task.getDescription(),
-                    task.getExecutor(), task.getPriority());
-        }
+        TaskDTO taskDTO = new TaskDTO();
+        taskDTO.name = task.getName();
+        return taskDTO;
     }
+
 
     public void fillTask(Task task) {
         task.setId(id);

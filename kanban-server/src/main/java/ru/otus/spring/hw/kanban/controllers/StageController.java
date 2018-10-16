@@ -1,18 +1,14 @@
 package ru.otus.spring.hw.kanban.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import ru.otus.spring.hw.kanban.dto.StageDTO;
-import ru.otus.spring.hw.kanban.service.StageService;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class StageController {
 
 
-    private final StageService stageService;
+//    private final StageService stageService;
 
+    /*
     @Autowired
     public StageController(StageService stageService) {
         this.stageService = stageService;
@@ -54,4 +50,5 @@ public class StageController {
     void deleteStage(@PathVariable int id) {
         stageService.deleteById(id);
     }
+    */
 }

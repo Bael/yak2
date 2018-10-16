@@ -1,34 +1,36 @@
 package ru.otus.spring.hw.kanban.domain;
 
-import javax.persistence.*;
 
-@Entity
+import java.util.HashSet;
+import java.util.Set;
+
 public class Stage {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
-    @Column()
     private String name;
-
-    @Column(length = 500)
     private String description;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Board board;
+    private Set<Task> tasks;
 
     public Stage(String name, String description, Board board) {
         this.name = name;
         this.description = description;
-        this.board = board;
     }
 
     public Stage() {
-
     }
 
     public Stage(String name, String description) {
         this.name = name;
         this.description = description;
+    }
+
+    public Set<Task> getTasks() {
+        if (tasks != null)
+            return tasks;
+        return new HashSet<>();
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
     }
 
     @Override
@@ -38,14 +40,6 @@ public class Stage {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 '}';
-    }
-
-    public Board getBoard() {
-        return board;
-    }
-
-    public void setBoard(Board board) {
-        this.board = board;
     }
 
     public int getId() {

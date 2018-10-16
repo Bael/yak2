@@ -1,20 +1,35 @@
 package ru.otus.spring.hw.kanban.domain;
 
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Set;
 
-@Entity
+@Document
 public class Board {
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+
     private Set<Stage> stages;
-    @Column(length = 500)
     private String name;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private String id;
 
+    public Board(String name, Set<Stage> stages) {
+        this.stages = stages;
+        this.name = name;
+    }
     public Board(String name) {
         this.name = name;
+    }
+
+    public Board() {
+    }
+
+    public Set<Stage> getStages() {
+        return stages;
+    }
+
+    public void setStages(Set<Stage> stages) {
+        this.stages = stages;
     }
 
     @Override
@@ -26,9 +41,6 @@ public class Board {
                 '}';
     }
 
-    public Board() {
-    }
-
     public String getName() {
         return name;
     }
@@ -37,11 +49,11 @@ public class Board {
         this.name = name;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 }

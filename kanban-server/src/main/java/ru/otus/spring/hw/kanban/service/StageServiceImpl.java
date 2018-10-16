@@ -1,22 +1,11 @@
 package ru.otus.spring.hw.kanban.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.otus.spring.hw.kanban.domain.Board;
-import ru.otus.spring.hw.kanban.domain.Stage;
-import ru.otus.spring.hw.kanban.dto.StageDTO;
-import ru.otus.spring.hw.kanban.exceptions.BoardNotFoundException;
-import ru.otus.spring.hw.kanban.exceptions.StageNotFoundException;
-import ru.otus.spring.hw.kanban.repository.BoardRepository;
-import ru.otus.spring.hw.kanban.repository.StageRepository;
-
-import javax.transaction.Transactional;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class StageServiceImpl implements StageService {
 
+    /*
     private final StageRepository stageRepository;
 
     private final BoardRepository boardRepository;
@@ -80,4 +69,5 @@ public class StageServiceImpl implements StageService {
     private Board findBoard(int id) {
         return boardRepository.findById(id).orElseThrow(() -> new BoardNotFoundException("board with id " + id + "not found."));
     }
+    */
 }

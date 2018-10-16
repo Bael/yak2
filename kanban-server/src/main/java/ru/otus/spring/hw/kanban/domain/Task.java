@@ -1,24 +1,16 @@
 package ru.otus.spring.hw.kanban.domain;
 
-import javax.persistence.*;
 
-@Entity
 public class Task {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column()
     private String name;
 
-    @Column(length = 500)
     private String description;
 
-    @Column(length = 500)
     private String executor;
 
-    @Column
     private int priority;
 
     @Override
@@ -32,9 +24,6 @@ public class Task {
                 '}';
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Stage stage;
-
     public Task() {
     }
 
@@ -45,13 +34,6 @@ public class Task {
         this.priority = priority;
     }
 
-    public Stage getStage() {
-        return stage;
-    }
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
 
     public int getPriority() {
         return priority;

@@ -1,12 +1,13 @@
 package ru.otus.spring.hw.kanban.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import reactor.core.publisher.Flux;
 import ru.otus.spring.hw.kanban.domain.Board;
 
-import java.util.List;
+public interface BoardRepository extends ReactiveMongoRepository<Board, String> {
+    Flux<Board> findBoardsByNameLike(String name);
 
-public interface BoardRepository extends CrudRepository<Board, Integer> {
-    List<Board> findBoardsByNameLike(String name);
-    List<Board> findAll();
+    Flux<Board> findAll();
 
+    Flux<Board> findByName(String name);
 }

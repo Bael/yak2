@@ -1,15 +1,11 @@
 package ru.otus.spring.hw.kanban.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import ru.otus.spring.hw.kanban.dto.TaskDTO;
-import ru.otus.spring.hw.kanban.service.TaskService;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class TaskController {
 
+    /*
     private final TaskService taskService;
 
     @Autowired
@@ -50,6 +46,8 @@ public class TaskController {
     @DeleteMapping("/tasks/{id}")
     @CrossOrigin(origins = "${client.url}")
     void deleteTask(@PathVariable int id) {
+
         taskService.deleteById(id);
     }
+    */
 }

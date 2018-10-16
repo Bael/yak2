@@ -2,14 +2,14 @@ package ru.otus.spring.hw.kanban;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = {"ru.otus.spring.hw.kanban.repository"})
+@EnableReactiveMongoRepositories(basePackages = "ru.otus.spring.hw.kanban.repository")
 public class KanbanApplication {
 
-  public static void main(String[] args) {
-    SpringApplication.run(KanbanApplication.class, args);
-  }
+    public static void main(String[] args) {
+        SpringApplication.run(KanbanApplication.class, args);
+    }
 }

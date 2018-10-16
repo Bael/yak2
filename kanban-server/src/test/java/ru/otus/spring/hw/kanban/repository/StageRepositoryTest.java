@@ -1,23 +1,15 @@
 package ru.otus.spring.hw.kanban.repository;
 
-import org.junit.Assert;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import ru.otus.spring.hw.kanban.domain.Board;
-import ru.otus.spring.hw.kanban.domain.Stage;
-
-import java.util.List;
-
-import static org.junit.Assert.*;
 
 
 @RunWith(SpringRunner.class)
 @SpringBootTest()
 public class StageRepositoryTest {
 
+    /*
     @Autowired
     StageRepository stageRepository;
 
@@ -57,4 +49,5 @@ public class StageRepositoryTest {
 
 
     }
+    */
 }

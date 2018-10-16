@@ -1,23 +1,12 @@
 package ru.otus.spring.hw.kanban.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.otus.spring.hw.kanban.domain.Stage;
-import ru.otus.spring.hw.kanban.domain.Task;
-import ru.otus.spring.hw.kanban.dto.TaskDTO;
-import ru.otus.spring.hw.kanban.exceptions.StageNotFoundException;
-import ru.otus.spring.hw.kanban.exceptions.TaskNotFoundException;
-import ru.otus.spring.hw.kanban.repository.StageRepository;
-import ru.otus.spring.hw.kanban.repository.TaskRepository;
-
-import javax.transaction.Transactional;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class TaskServiceImpl implements TaskService {
 
 
+    /*
     private final StageRepository stageRepository;
 
     private final TaskRepository taskRepository;
@@ -99,4 +88,5 @@ public class TaskServiceImpl implements TaskService {
     private Stage findStage(int id) {
         return stageRepository.findById(id).orElseThrow(() -> new StageNotFoundException("stagre id " + id + "not found."));
     }
+    */
 }

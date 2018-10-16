@@ -3,12 +3,16 @@ package ru.otus.spring.hw.kanban.dto;
 import ru.otus.spring.hw.kanban.domain.Stage;
 
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class StageDTO {
     public int id;
     public String name;
     public String description;
     public int boardId;
+    public Set<TaskDTO> tasks;
+
     public StageDTO(int id, String name, String description) {
         this.id = id;
         this.name = name;
@@ -25,12 +29,10 @@ public class StageDTO {
     public StageDTO() {
     }
 
-    static public StageDTO fromStage(Stage stage) {
-        if (stage.getBoard() != null) {
-            return new StageDTO(stage.getId(), stage.getName(), stage.getDescription(), stage.getBoard().getId());
-        } else {
-            return new StageDTO(stage.getId(), stage.getName(), stage.getDescription());
-        }
+    public static StageDTO fromStage(Stage stage) {
+        StageDTO stageDTO = new StageDTO(stage.getId(), stage.getName(), stage.getDescription());
+        stageDTO.tasks = stage.getTasks().stream().map(task -> TaskDTO.fromTask(task)).collect(Collectors.toSet());
+        return stageDTO;
     }
 
     @Override
