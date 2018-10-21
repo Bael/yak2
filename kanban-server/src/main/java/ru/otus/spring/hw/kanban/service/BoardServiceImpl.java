@@ -3,7 +3,10 @@ package ru.otus.spring.hw.kanban.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import ru.otus.spring.hw.kanban.domain.Board;
+import ru.otus.spring.hw.kanban.dto.BoardDTO;
+import ru.otus.spring.hw.kanban.exceptions.BoardNotFoundException;
 import ru.otus.spring.hw.kanban.repository.BoardRepository;
 
 @Service
@@ -16,33 +19,44 @@ public class BoardServiceImpl implements BoardService {
         this.boardRepository = boardRepository;
     }
 
+    @Override
     public Flux<Board> findAll() {
         return boardRepository.findAll();
 
     }
 
-    /*
-    public BoardDTO find(int id) {
-        Board board = boardRepository.findById(id)
-                .orElseThrow(() -> new BoardNotFoundException("Board with " + id + " not found."));
-        return BoardDTO.fromBoard(board);
+    @Override
+    public Mono<Board> find(String id) {
+        return boardRepository.findById(id)
+                .switchIfEmpty(Mono.error(new BoardNotFoundException("not found board with id" + id)));
     }
 
-    public BoardDTO create(BoardDTO newBoard) {
+    @Override
+    public Mono<Board> create(BoardDTO newBoard) {
         Board board = new Board();
         newBoard.fillBoard(board);
-        boardRepository.save(board);
-        return BoardDTO.fromBoard(board);
+        return boardRepository.save(board);
     }
 
-    public BoardDTO update(BoardDTO boardToUpdate) {
-        Board board = boardRepository.findById(boardToUpdate.id).orElseThrow(() -> new BoardNotFoundException(boardToUpdate.toString() + " not found."));
-        boardToUpdate.fillBoard(board);
-        boardRepository.save(board);
-        return BoardDTO.fromBoard(board);
+
+    @Override
+    public Mono<Board> update(BoardDTO boardToUpdate) {
+        System.out.println("UPDATE CALLED");
+        return boardRepository.findById(boardToUpdate.id)
+                .switchIfEmpty(Mono.error(new BoardNotFoundException("not found board with id" + boardToUpdate.id)))
+                .flatMap(existingBoard -> {
+                    existingBoard.setName(boardToUpdate.name);
+                    return boardRepository.save(existingBoard);
+                });
     }
 
-    public void deleteById(int id) {
+    @Override
+    public Mono<Void> deleteAll() {
+        return boardRepository.deleteAll();
+    }
+
+    public void deleteById(String id) {
         boardRepository.deleteById(id);
-    }*/
+    }
+
 }

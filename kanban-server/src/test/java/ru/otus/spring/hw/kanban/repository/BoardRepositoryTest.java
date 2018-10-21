@@ -27,7 +27,6 @@ public class BoardRepositoryTest {
             new HashSet<>(Arrays.asList(new Stage("plan", "waiting"),
                     new Stage("doing", "start")));
 
-
     private List<Board> boards = Arrays.asList(
             new Board("main", stages),
             new Board("home", stages));

@@ -1,19 +1,22 @@
 package ru.otus.spring.hw.kanban.service;
 
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import ru.otus.spring.hw.kanban.domain.Board;
+import ru.otus.spring.hw.kanban.dto.BoardDTO;
 
 
 public interface BoardService {
 
     Flux<Board> findAll();
 
-    /*
-    BoardDTO find(int id);
+    Mono<Board> find(String id);
 
-    BoardDTO create(BoardDTO newBoard);
+    Mono<Board> create(BoardDTO newBoard);
 
-    BoardDTO update(BoardDTO boardToUpdate);
+    Mono<Board> update(BoardDTO boardToUpdate);
 
-    void deleteById(int id); */
+    Mono<Void> deleteAll();
+
+    void deleteById(String id);
 }
