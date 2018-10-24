@@ -1,11 +1,13 @@
-import { TestBed, inject } from '@angular/core/testing';
+import {inject, TestBed} from '@angular/core/testing';
 
-import { BoardService } from './board.service';
+import {BoardService} from './board.service';
+import {HttpClient, HttpHandler} from '@angular/common/http';
+import {SettingsService} from './settings.service';
 
 describe('BoardService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [BoardService]
+      providers: [BoardService,  HttpClient, HttpHandler, SettingsService]
     });
   });
 

@@ -7,9 +7,9 @@
   <div>
     <form class="example-form" (submit)="createTask()">
       <mat-form-field class="full-width">
-        <input matInput [(ngModel)]="newTaskText"
+        <input matInput [(ngModel)]="newTaskText" name="newTaskName"
                placeholder="task name .."
-               [formControl]="taskNameFormControl">
+               >
       </mat-form-field>
 
       <button mat-button color="primary" type="submit" *ngIf="newTaskText != '' && newTaskText != null"> Add task

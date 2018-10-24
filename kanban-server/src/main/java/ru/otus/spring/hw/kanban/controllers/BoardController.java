@@ -18,29 +18,25 @@ public class BoardController {
         this.boardService = boardService;
     }
 
-    @GetMapping(value = "/boards")
-    @CrossOrigin(origins = "${client.url}")
+    @GetMapping(value = "/api/boards")
     public Flux<BoardDTO> getBoards() {
         return boardService.findAll().map(BoardDTO::fromBoard);
     }
 
 
-    @PostMapping("/boards")
-    @CrossOrigin(origins = "${client.url}")
+    @PostMapping("/api/boards")
     Mono<BoardDTO> newBoard(@RequestBody BoardDTO newBoard) {
         return boardService.create(newBoard).map(board -> BoardDTO.fromBoard(board));
     }
 
-    @PutMapping("/boards/{id}")
-    @CrossOrigin(origins = "${client.url}")
+    @PutMapping("/api/boards/{id}")
     Mono<BoardDTO> updateBoard(@RequestBody BoardDTO boardDTO, @PathVariable Long id) {
         System.out.println(">>> update board: " + boardDTO);
         return boardService.update(boardDTO)
                 .map(board -> BoardDTO.fromBoard(board));
     }
 
-    @PostMapping("/boards/{id}")
-    @CrossOrigin(origins = "${client.url}")
+    @PostMapping("/api/boards/{id}")
     Mono<BoardDTO> updateBoardByPost(@RequestBody BoardDTO boardDTO, @PathVariable Long id) {
         System.out.println(">>> update board: " + boardDTO);
         return boardService.update(boardDTO)
@@ -48,14 +44,12 @@ public class BoardController {
     }
 
 
-    @GetMapping("/boards/{id}")
-    @CrossOrigin(origins = "${client.url}")
+    @GetMapping("/api/boards/{id}")
     public Mono<BoardDTO> getBoard(@PathVariable String id) {
         return boardService.find(id).map(BoardDTO::fromBoard);
     }
 
-    @DeleteMapping("/boards/{id}")
-    @CrossOrigin(origins = "${client.url}")
+    @DeleteMapping("/api/boards/{id}")
     void deleteBoard(@PathVariable String id) {
         boardService.deleteById(id);
     }

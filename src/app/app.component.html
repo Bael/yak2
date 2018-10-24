@@ -1,10 +1,6 @@
-<mat-progress-bar mode="buffer" *ngIf="taskAreLoading"></mat-progress-bar>
 <mat-toolbar color="primary">
-
   <a title="Click to return to main page." routerLink="boards"
-     routerLinkActive="active"><span>Welcome to yet another Kanban! </span></a>
-
-
+     routerLinkActive="active"><span>{{title}}</span></a>
 </mat-toolbar>
 
 <router-outlet></router-outlet>

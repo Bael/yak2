@@ -1,5 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,8 +8,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  taskAreLoading = false;
-
+  title = 'Welcome to yet another Kanban!';
   ngOnDestroy(): void {
   }
 
