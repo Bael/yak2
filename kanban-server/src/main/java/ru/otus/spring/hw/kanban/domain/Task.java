@@ -3,7 +3,7 @@ package ru.otus.spring.hw.kanban.domain;
 
 public class Task {
 
-    private int id;
+    private String id;
 
     private String name;
 
@@ -43,11 +43,11 @@ public class Task {
         this.priority = priority;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

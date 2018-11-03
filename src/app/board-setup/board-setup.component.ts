@@ -15,7 +15,6 @@ export class BoardSetupComponent implements OnInit {
   board: Board;
   newStageName: String;
 
-
   constructor(private boardService: BoardService, private stageService: StageService,
               private activatedRoute: ActivatedRoute, private route: Router) {
   }
@@ -23,47 +22,34 @@ export class BoardSetupComponent implements OnInit {
   ngOnInit() {
     this.boardService.currentBoard.subscribe(board => {
       this.board = board;
-      this.loadStages(this.board);
     });
 
     const sub = this.activatedRoute.paramMap.subscribe(
       params => {
-        // (+) before `params.get()` turns the string into a number
-        this.loadBoard(+params.get('id'));
+        this.loadBoard(params.get('id').toString());
       }
     );
-
-    // this.loadBoard(this.activatedRoute.params['id']);
   }
 
-  loadBoard(boardId: number) {
+  loadBoard(boardId: String) {
     this.boardService.loadBoardById(boardId);
   }
 
-  loadStages(board: Board) {
-    const s = this.stageService.getStages(board.id).subscribe(value => {
-      this.board.stages = value;
-      s.unsubscribe();
-    });
-  }
 
   onSubmitNewStage(newStageName) {
     const s: Stage = new Stage(newStageName, this.board.id);
-
-    this.stageService.createStage(s).then(() => this.loadStages(this.board));
-
-
+    this.board.stages.push(s);
+    this.boardService.updateBoard(this.board).then(value => console.log(value));
   }
 
   deleteStage(stage: Stage) {
-    this.stageService.deleteStage(stage).then(() => this.loadStages(this.board),
-      reason => alert(JSON.stringify(reason)));
+    this.board.stages = this.board.stages.filter(value => value !== stage);
+    this.boardService.updateBoard(this.board).then(value => console.log(value));
   }
 
   editStage(stage: Stage, name: String) {
     stage.name = name;
-    this.stageService.updateStage(stage).then(value => () => this.loadStages(this.board));
-
+    this.boardService.updateBoard(this.board).then(value => console.log(value));
   }
 
   onDeleteBoard() {

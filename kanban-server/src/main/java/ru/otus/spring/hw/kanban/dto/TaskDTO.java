@@ -4,19 +4,18 @@ package ru.otus.spring.hw.kanban.dto;
 import ru.otus.spring.hw.kanban.domain.Task;
 
 public class TaskDTO {
-    public int id;
-    public int nextId;
-    public int previousId;
+    public String id;
+ ;
     public String name;
     public String description;
     public String executor;
     public int priority;
-    public int stageId;
+    public String stageId;
 
     public TaskDTO() {
     }
 
-    public TaskDTO(int id, String name, String description, String executor, int priority) {
+    public TaskDTO(String id, String name, String description, String executor, int priority) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -24,7 +23,7 @@ public class TaskDTO {
         this.priority = priority;
     }
 
-    public TaskDTO(int id, String name, String description, String executor, int priority, int stageId) {
+    public TaskDTO(String id, String name, String description, String executor, int priority, String stageId) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -40,11 +39,12 @@ public class TaskDTO {
     }
 
 
-    public void fillTask(Task task) {
+    public Task fillTask(Task task) {
         task.setId(id);
         task.setName(name);
         task.setDescription(description);
         task.setExecutor(executor);
         task.setPriority(priority);
+        return task;
     }
 }

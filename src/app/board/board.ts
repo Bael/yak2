@@ -1,7 +1,7 @@
 import {Stage} from './stage';
 
 export class Board {
-  id: number;
+  id: String;
   name: string;
   stages: Stage[];
 }

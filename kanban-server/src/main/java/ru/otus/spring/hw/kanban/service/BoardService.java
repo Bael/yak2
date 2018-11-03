@@ -18,5 +18,5 @@ public interface BoardService {
 
     Mono<Void> deleteAll();
 
-    void deleteById(String id);
+    Mono<Void> deleteById(String id);
 }

@@ -2,9 +2,7 @@ package ru.otus.spring.hw.kanban.dto;
 
 import ru.otus.spring.hw.kanban.domain.Board;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class BoardDTO {
@@ -12,21 +10,21 @@ public class BoardDTO {
     public String name;
     public String id;
 
-    public Set<StageDTO> getStages() {
+    public List<StageDTO> getStages() {
         return stages;
     }
 
-    public void setStages(Set<StageDTO> stages) {
+    public void setStages(List<StageDTO> stages) {
         if (stages == null) {
-            this.stages = new HashSet<>();
+            this.stages = new ArrayList<>();
         } else {
             this.stages = stages;
         }
     }
 
-    public Set<StageDTO> stages;
+    public List<StageDTO> stages;
 
-    public BoardDTO(String name, String id, Set<StageDTO> stages) {
+    public BoardDTO(String name, String id, List<StageDTO> stages) {
         this.name = name;
         this.id = id;
         this.stages = stages;
@@ -43,7 +41,8 @@ public class BoardDTO {
         boardDTO.setStages(board.getStages()
                                 .stream()
                                 .map(stage -> StageDTO.fromStage(stage))
-                                .collect(Collectors.toSet()));
+                                .sorted(Comparator.comparingInt(o -> o.order))
+                                .collect(Collectors.toList()));
         return boardDTO;
     }
 
@@ -68,5 +67,14 @@ public class BoardDTO {
     }
 
     public BoardDTO() {
+    }
+
+    @Override
+    public String toString() {
+        return "BoardDTO{" +
+                "name='" + name + '\'' +
+                ", id='" + id + '\'' +
+                ", stages=" + stages +
+                '}';
     }
 }

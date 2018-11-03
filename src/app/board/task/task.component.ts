@@ -17,7 +17,6 @@ export class TaskComponent implements OnInit {
   @Input()
   moveAheadEnabled: boolean;
 
-  // timerState: string = 'выключен';
   @Output()
   moveAheadEvent: EventEmitter<Task> = new EventEmitter<Task>();
   @Output()

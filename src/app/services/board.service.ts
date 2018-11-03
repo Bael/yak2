@@ -27,7 +27,7 @@ export class BoardService {
   }
 
 
-  loadBoardById(id: number) {
+  loadBoardById(id: String) {
     const sub = this.httpClient.get<Board>(
       `${this.settingsService.boardsUrl}\\${id}`)
       .subscribe(board => {
@@ -42,6 +42,13 @@ export class BoardService {
       `${this.settingsService.boardsUrl}`, board)
       .take(1).toPromise();
   }
+
+  updateBoard(board: Board) {
+    return this.httpClient.post<Board>(
+      `${this.settingsService.boardsUrl}/${board.id}`, board)
+      .take(1).toPromise();
+  }
+
 
   deleteBoard(board: Board) {
     return this.httpClient.delete(

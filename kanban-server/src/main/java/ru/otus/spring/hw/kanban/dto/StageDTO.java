@@ -1,24 +1,33 @@
 package ru.otus.spring.hw.kanban.dto;
 
 import ru.otus.spring.hw.kanban.domain.Stage;
+import ru.otus.spring.hw.kanban.domain.Task;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class StageDTO {
-    public int id;
+    public String id;
     public String name;
     public String description;
-    public int boardId;
+    public String boardId;
+    public int order;
+
+    public Set<TaskDTO> getTasks() {
+        return tasks == null ? new HashSet<>() : tasks;
+    }
+
     public Set<TaskDTO> tasks;
 
-    public StageDTO(int id, String name, String description) {
+    public StageDTO(String id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
     }
-    public StageDTO(int id, String name, String description, int boardId) {
+    public StageDTO(String id, String name, String description, String boardId) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -31,6 +40,7 @@ public class StageDTO {
 
     public static StageDTO fromStage(Stage stage) {
         StageDTO stageDTO = new StageDTO(stage.getId(), stage.getName(), stage.getDescription());
+        stageDTO.order = stage.getOrder();
         stageDTO.tasks = stage.getTasks().stream().map(task -> TaskDTO.fromTask(task)).collect(Collectors.toSet());
         return stageDTO;
     }
@@ -51,9 +61,14 @@ public class StageDTO {
         return Objects.hash(id, name, description, boardId);
     }
 
-    public void fillStage(Stage stage) {
+    public Stage fillStage(Stage stage) {
         stage.setId(id);
         stage.setName(name);
         stage.setDescription(description);
+        stage.setOrder(order);
+
+        Set<Task> tasks = this.getTasks().stream().map(taskDTO -> taskDTO.fillTask(new Task())).collect(Collectors.toSet());
+        stage.setTasks(tasks);
+        return stage;
     }
 }

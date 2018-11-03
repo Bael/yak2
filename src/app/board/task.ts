@@ -3,7 +3,7 @@ export class Task {
   name: string;
   description: string;
   priority: number;
-  stageId: number;
+  stageId: String;
   color: number;
 }
 

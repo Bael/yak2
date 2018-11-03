@@ -15,8 +15,7 @@ export class BoardListComponent implements OnInit, OnDestroy {
   private sub: Subscription;
 
 
-  constructor(private boardService: BoardService, private route: Router,
-              private stageService: StageService) {
+  constructor(private boardService: BoardService, private route: Router) {
   }
 
   ngOnInit() {
@@ -25,9 +24,7 @@ export class BoardListComponent implements OnInit, OnDestroy {
   }
 
   loadBoard(board) {
-
     this.boards = board;
-
   }
 
 
@@ -36,11 +33,7 @@ export class BoardListComponent implements OnInit, OnDestroy {
   }
 
   goToBoardSetup(board: Board): void {
-
-
     this.route.navigate(['board-setup', board.id]);
-
-
   }
 
 

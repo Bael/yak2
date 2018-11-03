@@ -15,8 +15,6 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class BoardComponent implements OnInit, OnDestroy {
   board: Board;
-
-  // stages: Stage[];
   private subscription: Subscription;
   private sub: Subscription;
 
@@ -27,15 +25,11 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-    this.sub.unsubscribe();
   }
 
   ngOnInit() {
-    this.boardService.currentBoard.subscribe(value => this.loadStages(value));
-
+    this.boardService.currentBoard.subscribe(value => this.board = value);
     this.sub = this.activatedRoute.params.subscribe(value => {
-
       this.boardService.loadBoardById(value.id);
     });
   }
@@ -44,17 +38,8 @@ export class BoardComponent implements OnInit, OnDestroy {
   moveTask(task: Task, index: number) {
     const stage: Stage = this.board.stages[index];
     task.stageId = stage.id;
-    const subscr = this.taskService.updateTask(task).subscribe(
-      () => {
-        subscr.unsubscribe();
-        stage.tasks.push(task);
-      }
-    );
+    stage.tasks.push(task);
+    this.boardService.updateBoard(this.board).then(value => console.log(value));
   }
 
-  loadStages(board: Board) {
-    this.board = board;
-    this.subscription = this.stageService.getStages(board.id).subscribe(value => this.board.stages = value,
-      error1 => console.log(error1));
-  }
 }

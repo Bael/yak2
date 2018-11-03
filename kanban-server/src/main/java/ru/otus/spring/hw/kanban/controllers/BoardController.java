@@ -1,10 +1,13 @@
 package ru.otus.spring.hw.kanban.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import ru.otus.spring.hw.kanban.dto.BoardDTO;
+import ru.otus.spring.hw.kanban.repository.BoardRepository;
 import ru.otus.spring.hw.kanban.service.BoardService;
 
 @RestController
@@ -30,14 +33,14 @@ public class BoardController {
     }
 
     @PutMapping("/api/boards/{id}")
-    Mono<BoardDTO> updateBoard(@RequestBody BoardDTO boardDTO, @PathVariable Long id) {
+    Mono<BoardDTO> updateBoard(@RequestBody BoardDTO boardDTO, @PathVariable String id) {
         System.out.println(">>> update board: " + boardDTO);
         return boardService.update(boardDTO)
                 .map(board -> BoardDTO.fromBoard(board));
     }
 
     @PostMapping("/api/boards/{id}")
-    Mono<BoardDTO> updateBoardByPost(@RequestBody BoardDTO boardDTO, @PathVariable Long id) {
+    Mono<BoardDTO> updateBoardByPost(@RequestBody BoardDTO boardDTO, @PathVariable String id) {
         System.out.println(">>> update board: " + boardDTO);
         return boardService.update(boardDTO)
                 .map(board -> BoardDTO.fromBoard(board));
@@ -49,22 +52,18 @@ public class BoardController {
         return boardService.find(id).map(BoardDTO::fromBoard);
     }
 
+    @Autowired
+    BoardRepository boardRepository;
+
     @DeleteMapping("/api/boards/{id}")
-    void deleteBoard(@PathVariable String id) {
-        boardService.deleteById(id);
-    }
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    Mono<ResponseEntity<Void>> deleteBoard(@PathVariable(value = "id") String id) {
+        return boardService.deleteById(id)
 
-    /*
-
-.thenEmpty(s -> {
-                    throw new BoardNotFoundException("");
-                })
-    @GetMapping("/boards/{id}")
-    @CrossOrigin(origins = "${client.url}")
-    public BoardDTO getBoard(@PathVariable int id) {
-        return boardService.find(id);
+                .then(Mono.just(new ResponseEntity<Void>(HttpStatus.NO_CONTENT)))
+                .defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 
-*/
+
 }

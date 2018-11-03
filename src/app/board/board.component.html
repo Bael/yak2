@@ -2,6 +2,7 @@
 
 <div class="column" *ngFor="let stage of board?.stages; let i=index; let isLast = last; let isFirst = first;">
   <app-stage [stage]="stage"
+             [board]="board"
              (moveAheadTaskEvent)="moveTask($event, i + 1)"
              (moveBackTaskEvent)="moveTask($event, i - 1)"
 

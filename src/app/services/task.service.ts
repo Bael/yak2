@@ -14,7 +14,7 @@ export class TaskService {
     return this.httpClient.get<Task[]>(this.settingsService.tasksUrl);
   }
 
-  getTasksByStageId(stageId: Number): Observable<Task[]> {
+  getTasksByStageId(stageId: String): Observable<Task[]> {
     return this.httpClient.get<Task[]>(`${this.settingsService.backendUrl}/stages/${stageId}/tasks`);
   }
 

@@ -1,12 +1,25 @@
 <div *ngIf="boards != null">
   <mat-nav-list>
-    <mat-list-item *ngFor="let board of boards">
-      <button type="button"
-              title="Edit board settings, or delete board" (click)="goToBoardSetup(board)">
-        <mat-icon matListIcon>edit</mat-icon>
-      </button>
-      <a [routerLink]="['/board', board.id]" routerLinkActive="active">Go to tasks for board: {{board.name}}</a>
-    </mat-list-item>
+    <div *ngFor="let board of boards" class="mat-row">
+
+
+      <mat-list-item>
+        <button type="button"
+                title="Edit board settings, or delete board" (click)="goToBoardSetup(board)">
+          <mat-icon matListIcon>edit</mat-icon>
+        </button>
+
+        <a [routerLink]="['/board', board.id]" routerLinkActive="active">
+          <mat-list-item>
+
+            Go to tasks for board: {{board.name}}
+          </mat-list-item>
+        </a>
+
+      </mat-list-item>
+
+    </div>
+
 
   </mat-nav-list>
 </div>

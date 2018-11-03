@@ -62,6 +62,26 @@ public class BoardRepositoryTest {
                                 .verifyComplete());
     }
 
+
+
+    @Test
+    public void findStagesByBoard() {
+        boards.stream()
+                .map(Board::getId)
+                .forEach(id ->
+                        StepVerifier.create(boardRepository.findStagesByBoard(id))
+                                .expectNextMatches(board ->
+                                {
+                                    System.out.println(board);
+
+                                    return  board.getStages().size() > 0 && board.getName().isEmpty();
+
+                                })
+
+                                .verifyComplete());
+    }
+
+
     @Test
     public void findByName() {
         boards.stream()

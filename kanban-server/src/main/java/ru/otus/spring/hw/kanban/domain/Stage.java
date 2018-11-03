@@ -1,14 +1,18 @@
 package ru.otus.spring.hw.kanban.domain;
 
 
+import org.springframework.data.annotation.Id;
+
 import java.util.HashSet;
 import java.util.Set;
 
 public class Stage {
-    private int id;
+
+    private String id;
     private String name;
     private String description;
     private Set<Task> tasks;
+    private int order;
 
     public Stage(String name, String description, Board board) {
         this.name = name;
@@ -42,11 +46,11 @@ public class Stage {
                 '}';
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -64,5 +68,13 @@ public class Stage {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
     }
 }
