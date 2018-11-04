@@ -10,6 +10,10 @@ buildscript {
   }
 }
 
+plugins {
+    id 'net.ltgt.apt' version '0.10'
+}
+
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
@@ -33,7 +37,12 @@ dependencies {
   compile('org.springframework.boot:spring-boot-parent:2.0.1.RELEASE')
   compile('org.springframework.boot:spring-boot-starter-thymeleaf')
   compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-security')
 //  compile('org.springframework.boot:spring-boot-starter-data:')
+    compile('org.projectlombok:lombok:1.18.4')
+
+    apt 'org.projectlombok:lombok:1.18.4'
+
   compile('org.springframework.boot:spring-boot-starter-data-jpa:1.5.8.RELEASE')
   runtime('com.h2database:h2')
   testCompile('org.springframework.boot:spring-boot-starter-test')
