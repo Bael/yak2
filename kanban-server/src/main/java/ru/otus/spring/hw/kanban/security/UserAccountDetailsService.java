@@ -8,6 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.otus.spring.hw.kanban.exceptions.UserNameIsOccupiedException;
 
+import java.util.List;
+
 @Service
 public class UserAccountDetailsService implements UserDetailsService {
 
@@ -41,6 +43,10 @@ public class UserAccountDetailsService implements UserDetailsService {
                 userAccount.getRole());
         return userRepository.save(newUserAccount);
 
+    }
+
+    public List<UserAccount> getUsers() {
+        return userRepository.findAll();
     }
 }
 

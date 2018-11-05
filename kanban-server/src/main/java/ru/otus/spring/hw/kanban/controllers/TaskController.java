@@ -1,6 +1,8 @@
 package ru.otus.spring.hw.kanban.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostFilter;
+import org.springframework.security.access.prepost.PreFilter;
 import org.springframework.web.bind.annotation.*;
 import ru.otus.spring.hw.kanban.dto.TaskDTO;
 import ru.otus.spring.hw.kanban.service.TaskService;
@@ -19,6 +21,7 @@ public class TaskController {
     }
 
     @GetMapping(value = "/stages/{id}/tasks")
+    @PostFilter("hasPermission(filterObject,'READ')")
     public List<TaskDTO> getTasksByStage(@PathVariable int id) {
         return taskService.findAllByStage(id);
     }

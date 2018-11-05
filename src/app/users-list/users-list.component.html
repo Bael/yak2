@@ -1,0 +1,9 @@
+<h3>
+  Users list:
+</h3>
+
+<mat-nav-list>
+    <mat-list-item *ngFor="let user of users">
+      <span>User: {{user.username}}, ROLE: {{user.role}}</span>
+    </mat-list-item>
+</mat-nav-list>

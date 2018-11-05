@@ -1,0 +1,555 @@
+databaseChangeLog:
+- changeSet:
+    id: 1541424822583-1
+    author: dk (generated)
+    changes:
+    - createSequence:
+        sequenceName: HIBERNATE_SEQUENCE
+- changeSet:
+    id: 1541424822583-2
+    author: dk (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: CONSTRAINT_2F
+            name: ID
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: CLASS
+            type: VARCHAR(255)
+        tableName: ACL_CLASS
+- changeSet:
+    id: 1541424822583-3
+    author: dk (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: CONSTRAINT_2FB
+            name: ID
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: ACL_OBJECT_IDENTITY
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: ACE_ORDER
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: SID
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: MASK
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: GRANTING
+            type: TINYINT
+        - column:
+            constraints:
+              nullable: false
+            name: AUDIT_SUCCESS
+            type: TINYINT
+        - column:
+            constraints:
+              nullable: false
+            name: AUDIT_FAILURE
+            type: TINYINT
+        tableName: ACL_ENTRY
+- changeSet:
+    id: 1541424822583-4
+    author: dk (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: CONSTRAINT_98
+            name: ID
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: OBJECT_ID_CLASS
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: OBJECT_ID_IDENTITY
+            type: BIGINT
+        - column:
+            defaultValueComputed: 'NULL'
+            name: PARENT_OBJECT
+            type: BIGINT
+        - column:
+            defaultValueComputed: 'NULL'
+            name: OWNER_SID
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: ENTRIES_INHERITING
+            type: TINYINT
+        tableName: ACL_OBJECT_IDENTITY
+- changeSet:
+    id: 1541424822583-5
+    author: dk (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: CONSTRAINT_E5
+            name: ID
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: PRINCIPAL
+            type: TINYINT
+        - column:
+            constraints:
+              nullable: false
+            name: SID
+            type: VARCHAR(100)
+        tableName: ACL_SID
+- changeSet:
+    id: 1541424822583-6
+    author: dk (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              primaryKey: true
+              primaryKeyName: CONSTRAINT_3
+            name: ID
+            type: INT
+        - column:
+            name: NAME
+            type: VARCHAR(500)
+        tableName: BOARD
+- changeSet:
+    id: 1541424822583-7
+    author: dk (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              primaryKey: true
+              primaryKeyName: CONSTRAINT_3E
+            name: BOARD_ID
+            type: INT
+        - column:
+            constraints:
+              primaryKey: true
+              primaryKeyName: CONSTRAINT_3E
+            name: STAGES_ID
+            type: INT
+        tableName: BOARD_STAGES
+- changeSet:
+    id: 1541424822583-8
+    author: dk (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              primaryKey: true
+              primaryKeyName: CONSTRAINT_4
+            name: ID
+            type: INT
+        - column:
+            name: DESCRIPTION
+            type: VARCHAR(500)
+        - column:
+            name: NAME
+            type: VARCHAR(255)
+        - column:
+            name: BOARD_ID
+            type: INT
+        tableName: STAGE
+- changeSet:
+    id: 1541424822583-9
+    author: dk (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              primaryKey: true
+              primaryKeyName: CONSTRAINT_E
+            name: ID
+            type: INT
+        - column:
+            name: CONTENT
+            type: VARCHAR(255)
+        tableName: SYSTEM_MESSAGE
+- changeSet:
+    id: 1541424822583-10
+    author: dk (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              primaryKey: true
+              primaryKeyName: CONSTRAINT_2
+            name: ID
+            type: INT
+        - column:
+            name: DESCRIPTION
+            type: VARCHAR(500)
+        - column:
+            name: EXECUTOR
+            type: VARCHAR(500)
+        - column:
+            name: NAME
+            type: VARCHAR(255)
+        - column:
+            name: PRIORITY
+            type: INT
+        - column:
+            name: STAGE_ID
+            type: INT
+        - column:
+            name: USER_ID
+            type: BIGINT
+        tableName: TASK
+- changeSet:
+    id: 1541424822583-11
+    author: dk (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              primaryKey: true
+              primaryKeyName: CONSTRAINT_9
+            name: ID
+            type: BIGINT
+        - column:
+            name: PASSWORD
+            type: VARCHAR(255)
+        - column:
+            name: ROLE
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: USERNAME
+            type: VARCHAR(255)
+        tableName: USER_ACCOUNT
+- changeSet:
+    id: 1541424822583-12
+    author: dk (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: USERNAME
+        constraintName: UK_CASTJBVPEEUS0R8LBPEHIU0E4
+        tableName: USER_ACCOUNT
+- changeSet:
+    id: 1541424822583-13
+    author: dk (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: STAGES_ID
+        constraintName: UK_OIANJBEFN2UM7QUSWJWWXMQ
+        tableName: BOARD_STAGES
+- changeSet:
+    id: 1541424822583-14
+    author: dk (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: SID, PRINCIPAL
+        constraintName: UNIQUE_UK_1
+        tableName: ACL_SID
+- changeSet:
+    id: 1541424822583-15
+    author: dk (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: CLASS
+        constraintName: UNIQUE_UK_2
+        tableName: ACL_CLASS
+- changeSet:
+    id: 1541424822583-16
+    author: dk (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: OBJECT_ID_CLASS, OBJECT_ID_IDENTITY
+        constraintName: UNIQUE_UK_3
+        tableName: ACL_OBJECT_IDENTITY
+- changeSet:
+    id: 1541424822583-17
+    author: dk (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: ACL_OBJECT_IDENTITY, ACE_ORDER
+        constraintName: UNIQUE_UK_4
+        tableName: ACL_ENTRY
+- changeSet:
+    id: 1541424822583-18
+    author: dk (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: ACL_OBJECT_IDENTITY
+        indexName: CONSTRAINT_2FB5_INDEX_2
+        tableName: ACL_ENTRY
+- changeSet:
+    id: 1541424822583-19
+    author: dk (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: OBJECT_ID_CLASS
+        indexName: CONSTRAINT_988C_INDEX_9
+        tableName: ACL_OBJECT_IDENTITY
+- changeSet:
+    id: 1541424822583-20
+    author: dk (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: SID
+        indexName: CONSTRAINT_INDEX_2
+        tableName: ACL_ENTRY
+- changeSet:
+    id: 1541424822583-21
+    author: dk (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            defaultValueComputed: 'NULL'
+            name: PARENT_OBJECT
+        indexName: CONSTRAINT_INDEX_9
+        tableName: ACL_OBJECT_IDENTITY
+- changeSet:
+    id: 1541424822583-22
+    author: dk (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            defaultValueComputed: 'NULL'
+            name: OWNER_SID
+        indexName: CONSTRAINT_INDEX_98
+        tableName: ACL_OBJECT_IDENTITY
+- changeSet:
+    id: 1541424822583-23
+    author: dk (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: STAGE_ID
+        indexName: FKB1N5YLHPXGY9MONEO4UDT2QRD_INDEX_2
+        tableName: TASK
+- changeSet:
+    id: 1541424822583-24
+    author: dk (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: USER_ID
+        indexName: FKCVBPN78P39E2G51JSYBV56G60_INDEX_2
+        tableName: TASK
+- changeSet:
+    id: 1541424822583-25
+    author: dk (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: BOARD_ID
+        indexName: FKIDNP88Q9DNPMFA821P6REHLK8_INDEX_3
+        tableName: BOARD_STAGES
+- changeSet:
+    id: 1541424822583-26
+    author: dk (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: BOARD_ID
+        indexName: FKJHKMO1A9424466THJLRI8UICH_INDEX_4
+        tableName: STAGE
+- changeSet:
+    id: 1541424822583-27
+    author: dk (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: ACL_OBJECT_IDENTITY
+        baseTableName: ACL_ENTRY
+        constraintName: CONSTRAINT_2FB5
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: RESTRICT
+        onUpdate: RESTRICT
+        referencedColumnNames: ID
+        referencedTableName: ACL_OBJECT_IDENTITY
+        validate: true
+- changeSet:
+    id: 1541424822583-28
+    author: dk (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: SID
+        baseTableName: ACL_ENTRY
+        constraintName: CONSTRAINT_2FB5F
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: RESTRICT
+        onUpdate: RESTRICT
+        referencedColumnNames: ID
+        referencedTableName: ACL_SID
+        validate: true
+- changeSet:
+    id: 1541424822583-29
+    author: dk (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: PARENT_OBJECT
+        baseTableName: ACL_OBJECT_IDENTITY
+        constraintName: CONSTRAINT_988
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: RESTRICT
+        onUpdate: RESTRICT
+        referencedColumnNames: ID
+        referencedTableName: ACL_OBJECT_IDENTITY
+        validate: true
+- changeSet:
+    id: 1541424822583-30
+    author: dk (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: OBJECT_ID_CLASS
+        baseTableName: ACL_OBJECT_IDENTITY
+        constraintName: CONSTRAINT_988C
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: RESTRICT
+        onUpdate: RESTRICT
+        referencedColumnNames: ID
+        referencedTableName: ACL_CLASS
+        validate: true
+- changeSet:
+    id: 1541424822583-31
+    author: dk (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: OWNER_SID
+        baseTableName: ACL_OBJECT_IDENTITY
+        constraintName: CONSTRAINT_988CE
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: RESTRICT
+        onUpdate: RESTRICT
+        referencedColumnNames: ID
+        referencedTableName: ACL_SID
+        validate: true
+- changeSet:
+    id: 1541424822583-32
+    author: dk (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: STAGE_ID
+        baseTableName: TASK
+        constraintName: FKB1N5YLHPXGY9MONEO4UDT2QRD
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: RESTRICT
+        onUpdate: RESTRICT
+        referencedColumnNames: ID
+        referencedTableName: STAGE
+        validate: true
+- changeSet:
+    id: 1541424822583-33
+    author: dk (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: USER_ID
+        baseTableName: TASK
+        constraintName: FKCVBPN78P39E2G51JSYBV56G60
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: RESTRICT
+        onUpdate: RESTRICT
+        referencedColumnNames: ID
+        referencedTableName: USER_ACCOUNT
+        validate: true
+- changeSet:
+    id: 1541424822583-34
+    author: dk (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: BOARD_ID
+        baseTableName: BOARD_STAGES
+        constraintName: FKIDNP88Q9DNPMFA821P6REHLK8
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: RESTRICT
+        onUpdate: RESTRICT
+        referencedColumnNames: ID
+        referencedTableName: BOARD
+        validate: true
+- changeSet:
+    id: 1541424822583-35
+    author: dk (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: BOARD_ID
+        baseTableName: STAGE
+        constraintName: FKJHKMO1A9424466THJLRI8UICH
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: RESTRICT
+        onUpdate: RESTRICT
+        referencedColumnNames: ID
+        referencedTableName: BOARD
+        validate: true
+- changeSet:
+    id: 1541424822583-36
+    author: dk (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: STAGES_ID
+        baseTableName: BOARD_STAGES
+        constraintName: FKPHV9NHXIKAJBM8WH4MEPWYVCN
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: RESTRICT
+        onUpdate: RESTRICT
+        referencedColumnNames: ID
+        referencedTableName: STAGE
+        validate: true
+

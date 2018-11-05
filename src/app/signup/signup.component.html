@@ -2,6 +2,7 @@
   {{error  | json}}
 </div>
 <h2>Signup new user</h2>
+<h2 *ngIf="result.length > 0">{{result}}</h2>
 <form  (submit)="signup(username.value, password.value)" >
   <mat-form-field class="example-full-width">
     <input

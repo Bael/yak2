@@ -8,6 +8,7 @@ import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './login/login.component';
 import {SignupComponent} from './signup/signup.component';
 import {AuthGuard} from './auth.guard';
+import {UsersListComponent} from './users-list/users-list.component';
 
 
 export const appRoutes: Routes = [
@@ -16,6 +17,7 @@ export const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'boards', component: BoardListComponent, canActivate: [AuthGuard]},
+  {path: 'users', component: UsersListComponent, canActivate: [AuthGuard]},
   {path: 'board/:id', component: BoardComponent, canActivate: [AuthGuard]},
   {path: 'board-setup/:id', component: BoardSetupComponent, canActivate: [AuthGuard]},
   {path: 'task/:id', component: EditTaskComponent, canActivate: [AuthGuard]},

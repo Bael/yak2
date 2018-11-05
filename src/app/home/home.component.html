@@ -21,6 +21,13 @@
       </mat-list-item>
     </a>
 
+    <a *ngIf="isLoggedIn()"
+       [routerLink]="['/users']" routerLinkActive="active">
+      <mat-list-item>
+        <span>Users list</span>
+      </mat-list-item>
+    </a>
+
 
   </mat-nav-list>
 </p>
