@@ -9,6 +9,8 @@ import ru.otus.spring.hw.kanban.exceptions.StageNotFoundException;
 import ru.otus.spring.hw.kanban.exceptions.TaskNotFoundException;
 import ru.otus.spring.hw.kanban.repository.StageRepository;
 import ru.otus.spring.hw.kanban.repository.TaskRepository;
+import ru.otus.spring.hw.kanban.security.UserAccount;
+import ru.otus.spring.hw.kanban.security.UserAccountRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -22,10 +24,13 @@ public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
 
+    private final UserAccountRepository userAccountRepository;
+
     @Autowired
-    public TaskServiceImpl(StageRepository stageRepository, TaskRepository taskRepository) {
+    public TaskServiceImpl(StageRepository stageRepository, TaskRepository taskRepository, UserAccountRepository userAccountRepository) {
         this.stageRepository = stageRepository;
         this.taskRepository = taskRepository;
+        this.userAccountRepository = userAccountRepository;
     }
 
     public List<TaskDTO> findAll() {
@@ -74,6 +79,13 @@ public class TaskServiceImpl implements TaskService {
         if (newTaskDTO.stageId > 0) {
             Stage stage = findStage(newTaskDTO.stageId);
             task.setStage(stage);
+        }
+
+        if (newTaskDTO.username != null) {
+            UserAccount acc = userAccountRepository.findByUsername(newTaskDTO.username);
+            if (acc != null) {
+                task.setUser(acc);
+            }
         }
 
         taskRepository.save(task);

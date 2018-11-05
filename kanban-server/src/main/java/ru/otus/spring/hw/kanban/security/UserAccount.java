@@ -1,17 +1,20 @@
 package ru.otus.spring.hw.kanban.security;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-
-import javax.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Builder
+@AllArgsConstructor
 public class UserAccount {
     @Id
     @GeneratedValue
@@ -23,6 +26,16 @@ public class UserAccount {
     private String password;
 
     private String role;
+
+
+    public UserAccount() {
+    }
+
+    public UserAccount(String username, String password, String role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
 
 
 }

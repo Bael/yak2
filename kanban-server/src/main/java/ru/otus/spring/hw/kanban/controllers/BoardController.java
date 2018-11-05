@@ -19,13 +19,11 @@ public class BoardController {
     }
 
     @GetMapping(value = "/boards")
-    @CrossOrigin(origins = "${client.url}")
     public List<BoardDTO> getBoards() {
         return boardService.findAll();
     }
 
     @PostMapping("/boards")
-    @CrossOrigin(origins = "${client.url}")
     BoardDTO newBoard(@RequestBody BoardDTO newBoard) {
         return boardService.create(newBoard);
     }

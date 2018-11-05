@@ -1,40 +1,44 @@
 package ru.otus.spring.hw.kanban.security;
 
 
-import java.io.IOException;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CORSFilter implements Filter {
 
   @Override
-  public void init(FilterConfig filterConfig) throws ServletException {
+  public void init(FilterConfig filterConfig)  {
   }
 
   @Override
-  public void doFilter(ServletRequest req, ServletResponse res,
+  public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
                        FilterChain chain) throws IOException, ServletException {
-    HttpServletResponse response = (HttpServletResponse) res;
-    HttpServletRequest request = (HttpServletRequest) req;
-    response.setHeader("Access-Control-Allow-Origin", "*");
-    response.setHeader("Access-Control-Allow-Methods",
-      "POST, GET, OPTIONS, DELETE");
-    response.setHeader("Access-Control-Max-Age", "3600");
-    response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
-    chain.doFilter(request, response);
+    HttpServletRequest request = (HttpServletRequest) servletRequest;
+    System.out.println("CORSFilter HTTP Request: " + request.getMethod());
+
+    // Authorize (allow) all domains to consume the content
+    ((HttpServletResponse) servletResponse).addHeader("Access-Control-Allow-Origin", "*");
+    ((HttpServletResponse) servletResponse).addHeader("Access-Control-Allow-Methods", "GET, OPTIONS, HEAD, PUT, POST");
+    ((HttpServletResponse) servletResponse).addHeader("Access-Control-Allow-Headers", "Content-Type,Authorization,X-Requested-With,X-Auth-Token");
+
+    HttpServletResponse resp = (HttpServletResponse) servletResponse;
+
+//     For HTTP OPTIONS verb/method reply with ACCEPTED status code -- per CORS handshake
+    if (request.getMethod().equals("OPTIONS")) {
+      resp.setStatus(HttpServletResponse.SC_OK);
+      return;
+    }
+
+    // pass the request along the filter chain
+    chain.doFilter(request, servletResponse);
   }
 
   public void destroy() {

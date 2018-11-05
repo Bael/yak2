@@ -5,7 +5,8 @@ export class SettingsService {
   constructor() {
   }
 
-  private _backendUrl = 'http://localhost:8080/api';
+  private _backendUrl = '/api';
+  // private _backendUrl = 'http://localhost:8080/api';
 
   get backendUrl(): string {
     return this._backendUrl;

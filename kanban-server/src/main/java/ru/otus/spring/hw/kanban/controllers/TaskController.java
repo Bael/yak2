@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.otus.spring.hw.kanban.dto.TaskDTO;
 import ru.otus.spring.hw.kanban.service.TaskService;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -17,21 +18,19 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    @CrossOrigin(origins = "${client.url}")
     @GetMapping(value = "/stages/{id}/tasks")
     public List<TaskDTO> getTasksByStage(@PathVariable int id) {
         return taskService.findAllByStage(id);
     }
 
-    @CrossOrigin(origins = "${client.url}")
     @GetMapping(value = "/tasks")
     public List<TaskDTO> getTasks() {
         return taskService.findAll();
     }
 
     @PostMapping("/tasks")
-    @CrossOrigin(origins = "${client.url}")
-    TaskDTO newTask(@RequestBody TaskDTO newTask) {
+    TaskDTO newTask(Principal principal, @RequestBody TaskDTO newTask) {
+        newTask.username = principal.getName();
         return taskService.create(newTask);
     }
 

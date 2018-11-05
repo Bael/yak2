@@ -11,7 +11,7 @@ import ru.otus.spring.hw.kanban.security.UserAccountRepository;
 import javax.annotation.PostConstruct;
 
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "ru.otus.spring.hw.kanban")
 @EnableJpaRepositories(basePackages = {"ru.otus.spring.hw.kanban.repository", "ru.otus.spring.hw.kanban.security"})
 public class KanbanApplication {
 
@@ -25,6 +25,7 @@ public class KanbanApplication {
 
   @Autowired
   PasswordEncoder encoder;
+
   @PostConstruct
   public void initAdmin() {
     if (repository.findByUsername("admin") == null) {

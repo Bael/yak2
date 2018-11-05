@@ -1,0 +1,26 @@
+<p>
+  Welcome, {{username()}}
+
+  <mat-nav-list>
+    <a *ngIf="isLoggedIn()" [routerLink]="['/boards']" routerLinkActive="active">
+      <mat-list-item>
+        <span>Go to boards list</span>
+      </mat-list-item>
+    </a>
+    <a *ngIf="!isLoggedIn()" [routerLink]="['/login']" routerLinkActive="active">
+
+      <mat-list-item>
+        <span>Authenticate</span>
+      </mat-list-item>
+    </a>
+
+    <a *ngIf="!isLoggedIn()"
+       [routerLink]="['/signup']" routerLinkActive="active">
+      <mat-list-item>
+        <span>Register new user</span>
+      </mat-list-item>
+    </a>
+
+
+  </mat-nav-list>
+</p>
