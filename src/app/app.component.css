@@ -8,3 +8,7 @@ app-board {
   display: flex;
   justify-content: space-between;
 }
+
+.spacer {
+  width: 100%;
+}

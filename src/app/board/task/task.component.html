@@ -10,7 +10,7 @@
     <mat-card-title title="click to open the task form" class="my-card-title">
       <a [routerLink]="['/task', task.id]">Task: {{task?.name}}</a>
     </mat-card-title>
-    <!--mat-card-subtitle>priority {{task?.priority}}</mat-card-subtitle-->
+    <mat-card-subtitle>executor: {{task?.username}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <span>Description: {{task?.description}}</span>

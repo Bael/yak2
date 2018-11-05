@@ -1,0 +1,23 @@
+<div class="alert alert-danger" *ngIf="error != null && error.length > 0">
+  There was a problem logging in. Please try again.
+</div>
+<h2>Please, enter username and password</h2>
+<form role="form" (submit)="login(username.value, password.value)" >
+    <mat-form-field class="example-full-width">
+    <input
+      placeholder="username:"
+      matInput type="text"
+                                                   id="username" name="username" #username
+      />
+
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+    <input type="password" placeholder="password:" matInput #password
+                                                   id="password" name="password"
+           />
+    </mat-form-field>
+  <div class="example-full-width">
+    <button type="submit" mat-button class="btn btn-primary">Login</button>
+  </div>
+</form>

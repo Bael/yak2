@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {Injectable, NgModule} from '@angular/core';
 
 
 import {AppComponent} from './app.component';
@@ -7,7 +7,7 @@ import {BoardComponent} from './board/board.component';
 import {StageComponent} from './board/stage/stage.component';
 import {TaskComponent} from './board/task/task.component';
 import {TaskService} from './services/task.service';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
@@ -30,16 +30,24 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {BoardListComponent} from './board-list/board-list.component';
 import {EditTaskComponent} from './board/edit-task/edit-task.component';
+import { HomeComponent } from './home/home.component';
+import {appRoutes} from './routes';
+import { LoginComponent } from './login/login.component';
+import {LoginService} from './services/login.service';
+import { SignupComponent } from './signup/signup.component';
+import {AuthGuard} from './auth.guard';
 
-const appRoutes: Routes = [
-  {path: '', redirectTo: '/boards', pathMatch: 'full'},
-  {path: 'boards', component: BoardListComponent},
-  {path: 'board/:id', component: BoardComponent},
-  {path: 'board-setup/:id', component: BoardSetupComponent},
-  {path: 'task/:id', component: EditTaskComponent},
-  {path: '**', component: PageNotFoundComponent}
-];
 
+@Injectable()
+export class XhrInterceptor implements HttpInterceptor {
+
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
+    const xhr = req.clone({
+      headers: req.headers.set('X-Requested-With', 'XMLHttpRequest')
+    });
+    return next.handle(xhr);
+  }
+}
 
 @NgModule({
   declarations: [
@@ -51,7 +59,10 @@ const appRoutes: Routes = [
     PageNotFoundComponent,
     DashboardComponent,
     BoardListComponent,
-    EditTaskComponent
+    EditTaskComponent,
+    HomeComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -74,7 +85,7 @@ const appRoutes: Routes = [
     MatFormFieldModule,
     MatInputModule
   ],
-  providers: [SettingsService, TaskService, StageService, BoardService],
+  providers: [SettingsService, TaskService, StageService, BoardService, LoginService, AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

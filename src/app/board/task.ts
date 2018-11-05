@@ -5,5 +5,6 @@ export class Task {
   priority: number;
   stageId: number;
   color: number;
+  username: string;
 }
 

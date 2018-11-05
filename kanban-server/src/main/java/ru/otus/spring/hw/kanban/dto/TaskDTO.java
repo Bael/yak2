@@ -1,15 +1,22 @@
 package ru.otus.spring.hw.kanban.dto;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import ru.otus.spring.hw.kanban.domain.Task;
 
+@Data
+@AllArgsConstructor
+@Builder
 public class TaskDTO {
     public int id;
-  public int nextId;
-  public int previousId;
+    public int nextId;
+    public int previousId;
     public String name;
     public String description;
     public String executor;
+    public String username;
     public int priority;
     public int stageId;
 
@@ -34,14 +41,21 @@ public class TaskDTO {
     }
 
     public static TaskDTO fromTask(Task task) {
+        TaskDTOBuilder builder = TaskDTO.builder().id(task.getId())
+                .name(task.getName())
+                .description(task.getDescription())
+                .executor(task.getExecutor())
+                .priority(task.getPriority());
+
+
         if (task.getStage() != null) {
-            return new TaskDTO(task.getId(), task.getName(), task.getDescription(),
-                    task.getExecutor(), task.getPriority(), task.getStage().getId());
+            builder.stageId(task.getStage().getId());
         }
-         else {
-            return new TaskDTO(task.getId(), task.getName(), task.getDescription(),
-                    task.getExecutor(), task.getPriority());
+
+        if (task.getUser() != null) {
+            builder.username(task.getUser().getUsername());
         }
+        return builder.build();
     }
 
     public void fillTask(Task task) {

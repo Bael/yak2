@@ -1,8 +1,12 @@
 package ru.otus.spring.hw.kanban.domain;
 
+import lombok.Data;
+import ru.otus.spring.hw.kanban.security.UserAccount;
+
 import javax.persistence.*;
 
 @Entity
+@Data
 public class Task {
 
     @Id
@@ -20,6 +24,9 @@ public class Task {
 
     @Column
     private int priority;
+
+    @ManyToOne
+    private UserAccount user;
 
     @Override
     public String toString() {

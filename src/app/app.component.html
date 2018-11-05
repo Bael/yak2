@@ -1,9 +1,12 @@
 <mat-progress-bar mode="buffer" *ngIf="taskAreLoading"></mat-progress-bar>
 <mat-toolbar color="primary">
 
-  <a title="Click to return to main page." routerLink="boards"
-     routerLinkActive="active"><span>Welcome to yet another Kanban! </span></a>
+  <a title="Click to return to main page." routerLink="/"
+     routerLinkActive="active"><span>Welcome to yet another Kanban, {{userName()}}! </span></a>
 
+
+  <span class="spacer"></span>
+  <button mat-button *ngIf="isLoggedIn()" (click)="logout()">Logout</button>
 
 </mat-toolbar>
 
