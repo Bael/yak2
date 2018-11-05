@@ -29,19 +29,16 @@ public class BoardController {
     }
 
     @GetMapping("/boards/{id}")
-    @CrossOrigin(origins = "${client.url}")
     public BoardDTO getBoard(@PathVariable int id) {
         return boardService.find(id);
     }
 
     @PutMapping("/boards/{id}")
-    @CrossOrigin(origins = "${client.url}")
     BoardDTO updateBoard(@RequestBody BoardDTO boardDTO, @PathVariable Long id) {
         return boardService.update(boardDTO);
     }
 
     @DeleteMapping("/boards/{id}")
-    @CrossOrigin(origins = "${client.url}")
     void deleteBoard(@PathVariable int id) {
         boardService.deleteById(id);
     }

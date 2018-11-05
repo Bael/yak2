@@ -18,13 +18,11 @@ public class StageController {
         this.stageService = stageService;
     }
 
-    @CrossOrigin(origins = "${client.url}")
     @GetMapping(value = "/stages")
     public List<StageDTO> getStages() {
         return stageService.findAll();
     }
 
-    @CrossOrigin(origins = "${client.url}")
     @GetMapping(value = "/boards/{id}/stages")
     public List<StageDTO> getStagesByBoard(@PathVariable int id) {
         return stageService.findByBoard(id);
@@ -32,24 +30,20 @@ public class StageController {
 
 
     @PostMapping("/stages")
-    @CrossOrigin(origins = "${client.url}")
     StageDTO newStage(@RequestBody StageDTO newStage) {
         return stageService.create(newStage);
     }
 
-    @CrossOrigin(origins = "${client.url}")
     @GetMapping("/stages/{id}")
     public StageDTO getStage(@PathVariable int id) {
         return stageService.find(id);
     }
 
-    @CrossOrigin(origins = "${client.url}")
     @PutMapping("/stages/{id}")
     StageDTO updateStage(@RequestBody StageDTO stageDTO, @PathVariable Long id) {
         return stageService.update(stageDTO);
     }
 
-    @CrossOrigin(origins = "${client.url}")
     @DeleteMapping("/stages/{id}")
     void deleteStage(@PathVariable int id) {
         stageService.deleteById(id);

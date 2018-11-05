@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -45,6 +46,7 @@ public class BoardControllerTest {
     }
 
     @Test
+    @WithMockUser(value = "spring")
     public void getBoards() throws Exception {
 
         List<BoardDTO> list = new ArrayList<>();
@@ -73,6 +75,7 @@ public class BoardControllerTest {
     }
 
     @Test
+    @WithMockUser(value = "spring")
     public void getBoard() throws Exception {
         int id = 1;
         BoardDTO board = new BoardDTO();
@@ -88,6 +91,7 @@ public class BoardControllerTest {
     }
 
     @Test
+    @WithMockUser(value = "spring")
     public void getNonExistingBoard() throws Exception {
 
         given(this.boardService.find(1))
@@ -100,6 +104,7 @@ public class BoardControllerTest {
 
 
     @Test
+    @WithMockUser(value = "spring")
     public void updateBoard() throws Exception {
         int id = 1;
         BoardDTO board = new BoardDTO();
@@ -128,6 +133,7 @@ public class BoardControllerTest {
     }
 
     @Test
+    @WithMockUser(value = "spring")
     public void deleteBoard() throws Exception {
         int id = 1000000;
         this.mvc.perform(
@@ -136,4 +142,6 @@ public class BoardControllerTest {
         )
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
+
+
 }

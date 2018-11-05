@@ -35,19 +35,16 @@ public class TaskController {
     }
 
     @GetMapping("/tasks/{id}")
-    @CrossOrigin(origins = "${client.url}")
     public TaskDTO getTask(@PathVariable int id) {
         return taskService.find(id);
     }
 
     @PutMapping("/tasks/{id}")
-    @CrossOrigin(origins = "${client.url}")
     TaskDTO updateTask(@RequestBody TaskDTO taskDTO, @PathVariable Long id) {
         return taskService.update(taskDTO);
     }
 
     @DeleteMapping("/tasks/{id}")
-    @CrossOrigin(origins = "${client.url}")
     void deleteTask(@PathVariable int id) {
         taskService.deleteById(id);
     }
