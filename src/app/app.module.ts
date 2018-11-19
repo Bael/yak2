@@ -36,6 +36,7 @@ import { LoginComponent } from './login/login.component';
 import {LoginService} from './services/login.service';
 import { SignupComponent } from './signup/signup.component';
 import {AuthGuard} from './auth.guard';
+import { UsersListComponent } from './users-list/users-list.component';
 
 
 @Injectable()
@@ -62,7 +63,8 @@ export class XhrInterceptor implements HttpInterceptor {
     EditTaskComponent,
     HomeComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    UsersListComponent
   ],
   imports: [
     RouterModule.forRoot(

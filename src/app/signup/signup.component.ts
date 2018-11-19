@@ -12,6 +12,7 @@ export class SignupComponent implements OnInit {
 
   credentials: UserAccount = new UserAccount();
 
+  result: string;
   error: string = null;
   constructor(private loginService: LoginService, private router: Router) {
   }
@@ -31,7 +32,9 @@ export class SignupComponent implements OnInit {
     this.loginService.signup(credentials).then(value => {
 
       console.log('signup done')
+        this.result = 'You"ve successfully registered new user';
       this.error = null;
+      this.router.navigateByUrl('/');
       },
         reason => {
           console.log('error while sign up' + JSON.stringify(reason));

@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {SettingsService} from './settings.service';
 import {Router} from '@angular/router';
+import {UserAccount} from '../user-account';
 
 @Injectable()
 export class LoginService {
@@ -38,7 +39,6 @@ export class LoginService {
   }
 
   public logout() {
-
     this.http.post('/api/logout', {}).take(1).toPromise().then(() => {
       this.userInfo = {};
       this.router.navigateByUrl('/');
@@ -47,11 +47,12 @@ export class LoginService {
   }
 
   signup(credentials) {
-    const headers = new HttpHeaders(credentials ? {
-      authorization: 'Basic ' + btoa(credentials.username + ':' + credentials.password)
-    } : {});
-
     return this.http.post(this.settingsService.backendUrl + '/user', credentials)
+      .take(1).toPromise();
+  }
+
+  getUsers() {
+    return this.http.get<UserAccount[]>(this.settingsService.backendUrl + '/users')
       .take(1).toPromise();
   }
 }

@@ -1,6 +1,12 @@
 package ru.otus.spring.hw.kanban.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.acls.domain.BasePermission;
+import org.springframework.security.acls.domain.GrantedAuthoritySid;
+import org.springframework.security.acls.domain.ObjectIdentityImpl;
+import org.springframework.security.acls.domain.PrincipalSid;
+import org.springframework.security.acls.model.*;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import ru.otus.spring.hw.kanban.domain.Stage;
 import ru.otus.spring.hw.kanban.domain.Task;
@@ -78,7 +84,7 @@ public class TaskServiceImpl implements TaskService {
         newTaskDTO.fillTask(task);
         if (newTaskDTO.stageId > 0) {
             Stage stage = findStage(newTaskDTO.stageId);
-            task.setStage(stage);
+            task.setStage(  stage);
         }
 
         if (newTaskDTO.username != null) {
@@ -89,8 +95,26 @@ public class TaskServiceImpl implements TaskService {
         }
 
         taskRepository.save(task);
+
+        final Sid owner = new PrincipalSid(SecurityContextHolder.getContext().getAuthentication());
+        final Sid admin = new GrantedAuthoritySid("ROLE_ADMIN");
+        //         создать                 ObjectIdentity         для бизнес сущности
+        final ObjectIdentity oid = new ObjectIdentityImpl(Task.class, task.getId());
+        // создать пустой         ACL
+        final MutableAcl acl = aclService.createAcl(oid);
+
+        // определить владельца сущности и права пользователей
+        acl.setOwner(owner);
+        acl.insertAce(acl.getEntries().size(), BasePermission.READ, owner, true);
+        acl.insertAce(acl.getEntries().size(), BasePermission.ADMINISTRATION, admin, true);
+        // обновить ACL в БД
+        aclService.updateAcl(acl);
+
         return TaskDTO.fromTask(task);
     }
+
+    @Autowired
+    MutableAclService aclService;
 
     @Transactional
     public TaskDTO update(TaskDTO taskToUpdate) {
