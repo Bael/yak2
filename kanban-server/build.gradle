@@ -62,6 +62,8 @@ dependencies {
     compile 'org.springframework.security:spring-security-config:5.0.7.RELEASE'
     compile 'org.springframework:spring-context-support:5.0.7.RELEASE'
     compile 'net.sf.ehcache:ehcache-core:2.6.11'
+    compile("org.springframework.boot:spring-boot-starter-batch")
+    implementation('org.springframework.boot:spring-boot-starter-data-mongodb:2.0.3.RELEASE')
 
 //    compile 'org.liquibase:liquibase-core:3.6.2'
 
