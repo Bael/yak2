@@ -1,26 +1,32 @@
 package ru.otus.spring.hw.kanban.conversion;
 
+import com.mongodb.MongoClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.batch.core.ItemReadListener;
-import org.springframework.batch.core.ItemWriteListener;
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.Step;
+import org.springframework.batch.core.*;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.scope.context.ChunkContext;
-import org.springframework.batch.item.*;
+import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.data.MongoItemWriter;
+import org.springframework.batch.item.data.RepositoryItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import ru.otus.spring.hw.kanban.conversion.BoardItemProcessor;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import ru.otus.spring.hw.kanban.domain.Board;
+import ru.otus.spring.hw.kanban.repository.BoardPagingRepository;
 import ru.otus.spring.hw.kanban.repository.BoardRepository;
 import ru.otus.spring.hw.kanban.repository.mongo.BoardMongoRepository;
-import org.springframework.batch.core.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @EnableBatchProcessing
 public class ToMongoBatchConfig {
@@ -38,32 +44,48 @@ public class ToMongoBatchConfig {
   BoardItemProcessor boardItemProcessor;
 
   @Autowired
-  BoardRepository boardRepository;
+  BoardPagingRepository boardPagingRepository;
+
+
   @Autowired
   BoardMongoRepository boardMongoRepository;
 
-  @Bean
   public ItemReader<Board> reader() {
-    return new ItemReader<Board>() {
-
-      private Integer currentId = 0;
-
-      @Override
-      public Board read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
-        Board board = boardRepository.findFirstByIdGreaterThan(currentId).orElse(null);
-        if (board != null) {
-          currentId = board.getId();
-        }
-
-        return board;
-      }
-    };
+    RepositoryItemReader<Board> reader = new RepositoryItemReader<>();
+    reader.setRepository(boardPagingRepository);
+    reader.setMethodName("findAll");
+    List parameters = new ArrayList();
+    reader.setArguments(parameters);
+    Map<String, Sort.Direction> sort = new HashMap<>();
+    sort.put("id", Sort.Direction.ASC);
+    reader.setSort(sort);
+    return reader;
   }
 
   @Bean
   public ItemWriter<ru.otus.spring.hw.kanban.domain.mongo.Board> writer() {
-    return items -> items.forEach(o -> boardMongoRepository.save(o));
+    MongoItemWriter<ru.otus.spring.hw.kanban.domain.mongo.Board> writer = new MongoItemWriter<>();
+    try {
+      writer.setTemplate(mongoTemplate());
+    } catch (Exception e) {
+      logger.error(e.toString());
+    }
+    writer.setCollection("board");
+    return writer;
   }
+
+
+  @Bean
+  public MongoDbFactory mongoDbFactory() throws Exception {
+    return new SimpleMongoDbFactory(new MongoClient(), "kanban");
+  }
+
+  @Bean
+  public MongoTemplate mongoTemplate() throws Exception {
+    MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory());
+    return mongoTemplate;
+  }
+
 
   @Bean
   public Step step1() {
@@ -73,24 +95,56 @@ public class ToMongoBatchConfig {
       .processor(boardItemProcessor)
       .writer(writer())
       .listener(new ItemReadListener<Board>() {
-        public void beforeRead() { logger.info("Начало чтения"); }
-        public void afterRead(Board o) { logger.info("Конец чтения " + o.toString()); }
-        public void onReadError(Exception e) { logger.info("Ошибка чтения"); }
+        public void beforeRead() {
+          logger.info("Начало чтения");
+        }
+
+        public void afterRead(Board o) {
+          logger.info("Конец чтения " + o.toString());
+        }
+
+        public void onReadError(Exception e) {
+          logger.info("Ошибка чтения");
+        }
       })
       .listener(new ItemWriteListener() {
-        public void beforeWrite(List list) { logger.info("Начало записи"); }
-        public void afterWrite(List list) { logger.info("Конец записи"); }
-        public void onWriteError(Exception e, List list) { logger.info("Ошибка записи"); }
+        public void beforeWrite(List list) {
+          logger.info("Начало записи");
+        }
+
+        public void afterWrite(List list) {
+          logger.info("Конец записи");
+        }
+
+        public void onWriteError(Exception e, List list) {
+          logger.info("Ошибка записи");
+        }
       })
       .listener(new ItemProcessListener() {
-        public void beforeProcess(Object o) {logger.info("Начало обработки");}
-        public void afterProcess(Object o, Object o2) {logger.info("Конец обработки");}
-        public void onProcessError(Object o, Exception e) {logger.info("Ошбка обработки");}
+        public void beforeProcess(Object o) {
+          logger.info("Начало обработки");
+        }
+
+        public void afterProcess(Object o, Object o2) {
+          logger.info("Конец обработки");
+        }
+
+        public void onProcessError(Object o, Exception e) {
+          logger.info("Ошбка обработки");
+        }
       })
       .listener(new ChunkListener() {
-        public void beforeChunk(ChunkContext chunkContext) {logger.info("Начало пачки");}
-        public void afterChunk(ChunkContext chunkContext) {logger.info("Конец пачки");}
-        public void afterChunkError(ChunkContext chunkContext) {logger.info("Ошибка пачки");}
+        public void beforeChunk(ChunkContext chunkContext) {
+          logger.info("Начало пачки");
+        }
+
+        public void afterChunk(ChunkContext chunkContext) {
+          logger.info("Конец пачки");
+        }
+
+        public void afterChunkError(ChunkContext chunkContext) {
+          logger.info("Ошибка пачки");
+        }
       })
       .build();
   }
