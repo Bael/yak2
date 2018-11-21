@@ -8,25 +8,22 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.scope.context.ChunkContext;
-import org.springframework.batch.item.ItemReader;
-import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.*;
 import org.springframework.batch.item.data.MongoItemWriter;
-import org.springframework.batch.item.data.RepositoryItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import ru.otus.spring.hw.kanban.domain.Board;
-import ru.otus.spring.hw.kanban.repository.BoardPagingRepository;
+import ru.otus.spring.hw.kanban.domain.Stage;
 import ru.otus.spring.hw.kanban.repository.BoardRepository;
+import ru.otus.spring.hw.kanban.repository.StageRepository;
+import ru.otus.spring.hw.kanban.repository.TaskRepository;
 import ru.otus.spring.hw.kanban.repository.mongo.BoardMongoRepository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @EnableBatchProcessing
 public class ToMongoBatchConfig {
@@ -44,23 +41,46 @@ public class ToMongoBatchConfig {
   BoardItemProcessor boardItemProcessor;
 
   @Autowired
-  BoardPagingRepository boardPagingRepository;
+  BoardRepository boardRepository;
 
 
   @Autowired
   BoardMongoRepository boardMongoRepository;
 
+  @Autowired
+  StageRepository stageRepository;
+
+  @Autowired
+  TaskRepository taskRepository;
+
+  @Bean
   public ItemReader<Board> reader() {
-    RepositoryItemReader<Board> reader = new RepositoryItemReader<>();
-    reader.setRepository(boardPagingRepository);
-    reader.setMethodName("findAll");
-    List parameters = new ArrayList();
-    reader.setArguments(parameters);
-    Map<String, Sort.Direction> sort = new HashMap<>();
-    sort.put("id", Sort.Direction.ASC);
-    reader.setSort(sort);
-    return reader;
+    return new ItemReader<Board>() {
+
+      private Integer currentId = 0;
+
+      @Override
+      public Board read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
+        Board board = boardRepository.findFirstByIdGreaterThan(currentId).orElse(null);
+        if (board != null) {
+          Set<Stage> stagesSet = new HashSet<>();
+          List<Stage> stages = stageRepository.findStagesByBoard(board);
+
+          for (Stage stage : stages) {
+            stage.setTasks(taskRepository.findAllByStage(stage)
+              .stream()
+              .collect(Collectors.toSet()));
+            stagesSet.add(stage);
+          }
+          board.setStages(stagesSet);
+          currentId = board.getId();
+        }
+
+        return board;
+      }
+    };
   }
+
 
   @Bean
   public ItemWriter<ru.otus.spring.hw.kanban.domain.mongo.Board> writer() {

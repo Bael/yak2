@@ -1,6 +1,8 @@
 package ru.otus.spring.hw.kanban.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Stage {
@@ -15,6 +17,21 @@ public class Stage {
     private String description;
     @ManyToOne(fetch = FetchType.LAZY)
     private Board board;
+
+    public Set<Task> getTasks() {
+        if (tasks == null) {
+            tasks = new HashSet<>();
+        }
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Task> tasks;
+
 
     public Stage(String name, String description, Board board) {
         this.name = name;

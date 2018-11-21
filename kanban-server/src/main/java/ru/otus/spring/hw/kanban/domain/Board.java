@@ -1,10 +1,22 @@
 package ru.otus.spring.hw.kanban.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 public class Board {
+    public Set<Stage> getStages() {
+        if (stages == null) {
+            stages = new HashSet<>();
+        }
+        return stages;
+    }
+
+    public void setStages(Set<Stage> stages) {
+        this.stages = stages;
+    }
+
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private Set<Stage> stages;
     @Column(length = 500)
