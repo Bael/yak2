@@ -63,7 +63,12 @@ dependencies {
     compile 'org.springframework:spring-context-support:5.0.7.RELEASE'
     compile 'net.sf.ehcache:ehcache-core:2.6.11'
 
-//    compile 'org.liquibase:liquibase-core:3.6.2'
+    compile 'org.springframework.boot:spring-boot-starter-actuator'
+//    compile 'io.micrometer:micrometer-spring-legacy:1.0.6'
+
+//    compile 'io.micrometer:micrometer-registry-atlas:1.0.6'
+
+    //compile 'org.liquibase:liquibase-core:3.6.2'
 
     compile('org.springframework.boot:spring-boot-starter-data-jpa:1.5.8.RELEASE')
     runtime('com.h2database:h2')

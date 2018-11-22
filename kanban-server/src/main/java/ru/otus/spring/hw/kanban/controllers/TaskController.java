@@ -1,5 +1,6 @@
 package ru.otus.spring.hw.kanban.controllers;
 
+import io.micrometer.core.annotation.Timed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreFilter;
@@ -22,6 +23,7 @@ public class TaskController {
 
     @GetMapping(value = "/stages/{id}/tasks")
     @PostFilter("hasPermission(filterObject,'READ')")
+    @Timed(value = "tasks.getbystage")
     public List<TaskDTO> getTasksByStage(@PathVariable int id) {
         return taskService.findAllByStage(id);
     }
@@ -32,22 +34,26 @@ public class TaskController {
     }
 
     @PostMapping("/tasks")
+    @Timed(value = "tasks.create")
     TaskDTO newTask(Principal principal, @RequestBody TaskDTO newTask) {
         newTask.username = principal.getName();
         return taskService.create(newTask);
     }
 
     @GetMapping("/tasks/{id}")
+    @Timed(value = "tasks.getbyid")
     public TaskDTO getTask(@PathVariable int id) {
         return taskService.find(id);
     }
 
     @PutMapping("/tasks/{id}")
+    @Timed(value = "tasks.update")
     TaskDTO updateTask(@RequestBody TaskDTO taskDTO, @PathVariable Long id) {
         return taskService.update(taskDTO);
     }
 
     @DeleteMapping("/tasks/{id}")
+    @Timed(value = "tasks.delete")
     void deleteTask(@PathVariable int id) {
         taskService.deleteById(id);
     }
