@@ -96,19 +96,19 @@ public class TaskServiceImpl implements TaskService {
 
         taskRepository.save(task);
 
-        final Sid owner = new PrincipalSid(SecurityContextHolder.getContext().getAuthentication());
-        final Sid admin = new GrantedAuthoritySid("ROLE_ADMIN");
-        //         создать                 ObjectIdentity         для бизнес сущности
-        final ObjectIdentity oid = new ObjectIdentityImpl(Task.class, task.getId());
-        // создать пустой         ACL
-        final MutableAcl acl = aclService.createAcl(oid);
-
-        // определить владельца сущности и права пользователей
-        acl.setOwner(owner);
-        acl.insertAce(acl.getEntries().size(), BasePermission.READ, owner, true);
-        acl.insertAce(acl.getEntries().size(), BasePermission.ADMINISTRATION, admin, true);
-        // обновить ACL в БД
-        aclService.updateAcl(acl);
+//        final Sid owner = new PrincipalSid(SecurityContextHolder.getContext().getAuthentication());
+//        final Sid admin = new GrantedAuthoritySid("ROLE_ADMIN");
+//        //         создать                 ObjectIdentity         для бизнес сущности
+//        final ObjectIdentity oid = new ObjectIdentityImpl(Task.class, task.getId());
+//        // создать пустой         ACL
+//        final MutableAcl acl = aclService.createAcl(oid);
+//
+//        // определить владельца сущности и права пользователей
+//        acl.setOwner(owner);
+//        acl.insertAce(acl.getEntries().size(), BasePermission.READ, owner, true);
+//        acl.insertAce(acl.getEntries().size(), BasePermission.ADMINISTRATION, admin, true);
+//        // обновить ACL в БД
+//        aclService.updateAcl(acl);
 
         return TaskDTO.fromTask(task);
     }
