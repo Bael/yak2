@@ -3,6 +3,7 @@ package ru.otus.spring.hw.kanban;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.otus.spring.hw.kanban.security.UserAccount;
@@ -11,8 +12,9 @@ import ru.otus.spring.hw.kanban.security.UserAccountRepository;
 import javax.annotation.PostConstruct;
 
 
-@SpringBootApplication(scanBasePackages = "ru.otus.spring.hw.kanban")
+@SpringBootApplication(scanBasePackages = {"ru.otus.spring.hw.kanban"})
 @EnableJpaRepositories(basePackages = {"ru.otus.spring.hw.kanban.repository", "ru.otus.spring.hw.kanban.security"})
+@Import(BoardIntegrationConfig.class)
 public class KanbanApplication {
 
   public static void main(String[] args) {

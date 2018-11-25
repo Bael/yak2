@@ -68,6 +68,9 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-jpa:1.5.8.RELEASE')
     runtime('com.h2database:h2')
 
+    compile("org.springframework.boot:spring-boot-starter-integration")
+    compile("org.springframework:spring-messaging")
+
     // All of your normal project dependencies would be here in addition to...
 //    liquibaseRuntime 'org.liquibase:liquibase-core:3.6.1'
 //    liquibaseRuntime 'org.liquibase:liquibase-groovy-dsl:2.0.1'

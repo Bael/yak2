@@ -32,9 +32,10 @@ public class BoardDTO {
         return Objects.hash(name, id);
     }
 
-    public void fillBoard(Board board) {
+    public Board fillBoard(Board board) {
         board.setId(this.id);
         board.setName(this.name);
+        return board;
     }
 
     public BoardDTO() {

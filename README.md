@@ -7,7 +7,10 @@ Simple kanban application.
 ## Server app
 
 Run `cd kanban_server` to go to server folder.
-Run `./gradlew bootRun` to start application
+ 
+Run `sudo ./gradlew assembleDockerImage` to assemble server image.
+
+Run `sudo docker-compose up -d` to start docker compose
 
 # Client:
 Download sources.

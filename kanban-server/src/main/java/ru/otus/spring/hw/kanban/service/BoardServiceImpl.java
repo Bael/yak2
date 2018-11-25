@@ -21,6 +21,7 @@ public class BoardServiceImpl implements BoardService {
         this.boardRepository = boardRepository;
     }
 
+
     public List<BoardDTO> findAll() {
         return boardRepository.findAll().stream().map(BoardDTO::fromBoard).collect(Collectors.toList());
     }
@@ -39,6 +40,7 @@ public class BoardServiceImpl implements BoardService {
         return BoardDTO.fromBoard(board);
     }
 
+
     @Transactional
     public BoardDTO update(BoardDTO boardToUpdate) {
         Board board = boardRepository.findById(boardToUpdate.id).orElseThrow(() -> new BoardNotFoundException(boardToUpdate.toString() + " not found."));
@@ -50,5 +52,12 @@ public class BoardServiceImpl implements BoardService {
     @Transactional
     public void deleteById(int id) {
         boardRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public Board delete(Board payload) {
+        boardRepository.delete(payload);
+        return null;
     }
 }
