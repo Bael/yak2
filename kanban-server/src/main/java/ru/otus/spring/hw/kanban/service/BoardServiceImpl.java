@@ -1,5 +1,6 @@
 package ru.otus.spring.hw.kanban.service;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.otus.spring.hw.kanban.domain.Board;
@@ -8,6 +9,7 @@ import ru.otus.spring.hw.kanban.exceptions.BoardNotFoundException;
 import ru.otus.spring.hw.kanban.repository.BoardRepository;
 
 import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,9 +23,11 @@ public class BoardServiceImpl implements BoardService {
         this.boardRepository = boardRepository;
     }
 
+
     public List<BoardDTO> findAll() {
         return boardRepository.findAll().stream().map(BoardDTO::fromBoard).collect(Collectors.toList());
     }
+
 
     public BoardDTO find(int id) {
         Board board = boardRepository.findById(id)
@@ -51,4 +55,7 @@ public class BoardServiceImpl implements BoardService {
     public void deleteById(int id) {
         boardRepository.deleteById(id);
     }
+
+
+
 }
