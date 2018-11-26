@@ -23,7 +23,7 @@ public class TaskController {
     }
 
     @GetMapping(value = "/stages/{id}/tasks")
-    @PostFilter("hasPermission(filterObject,'READ')")
+//    @PostFilter("hasPermission(filterObject,'READ')")
     @HystrixCommand(groupKey = "tasks", fallbackMethod = "findAllByStageFallback")
     public List<TaskDTO> getTasksByStage(@PathVariable int id) {
         return taskService.findAllByStage(id);
